@@ -9,15 +9,6 @@ export default class sideBar extends Component {
                     <Link className="links" to="/">
                         <li>Home</li>
                     </Link>
-                    <Link className="links" to="/game">
-                        <li>Games</li>
-                    </Link>
-                    <Link className="links" to="/pictures">
-                        <li>Pictures</li>
-                    </Link>
-                    <Link className="links" to="/Options">
-                        <li>Options</li>
-                    </Link>
                 </ul>
             </div>
         );
