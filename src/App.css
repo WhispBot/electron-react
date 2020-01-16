@@ -6,7 +6,6 @@
 }
 body {
     color: #ff00f2;
-    background-color: #3c2c52;
     background: #363036;
     font-family: "Montserrat", sans-serif;
 }
@@ -179,12 +178,16 @@ ul {
 }
 
 .wrapper-options div {
-    border: 1px solid rgba(0, 0, 0, 0.527);
+    padding: 10px;
+    border: 2px solid #302b30;
     margin: 5px;
     border-radius: 5px;
 }
 
 .box-1 {
+    display: flex;
+    justify-content: space-between;
+
     grid-row: 1/2;
     grid-column: 1/2;
 }

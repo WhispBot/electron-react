@@ -17,7 +17,7 @@ function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
         minWidth: 1050,
-        minHeight: 520,
+        minHeight: 600,
         resizable: true,
         show: false,
         frame: false,
@@ -73,7 +73,7 @@ ipcMain.on("open-dialog", () => {
         });
 });
 
-if (process.env.NODE_ENV !== "production") {
+if (isDev) {
     mainMenuTemplate.push({
         label: "Dev Tools",
         submenu: [

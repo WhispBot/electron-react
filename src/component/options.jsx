@@ -9,7 +9,8 @@ export default class home extends Component {
                 filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }]
             })
             .then(data => {
-                console.log(data.filePaths);
+                console.log(data.filePaths[0]);
+                document.body.style.backgroundImage = `url(${data.filePaths[0]})`;
             })
             .catch(err => {
                 console.log(err);
