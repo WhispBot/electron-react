@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./component/home";
 import FrameBar from "./component/frameBar";
 import SideBar from "./component/sideBar";
+import Todos from "./component/Todos";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                 <SideBar />
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    <Route path="/todos" exact component={Todos} />
                 </Switch>
             </div>
         </Router>

@@ -6,7 +6,6 @@ export default class home extends Component {
         return (
             <div id="main" className="wrapper-home">
                 <h1>Home</h1>
-                <h1>Home</h1>
             </div>
         );
     }

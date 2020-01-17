@@ -8,6 +8,7 @@ const {
 } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
+const fs = require("fs");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -60,17 +61,23 @@ app.on("activate", () => {
     }
 });
 
-ipcMain.on("open-dialog", () => {
-    dialog
-        .showOpenDialog({
-            filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }]
-        })
-        .then(data => {
-            console.log(data.filePaths);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+ipcMain.on("remove-todo", (e, todo) => {
+    console.log(todo);
+});
+
+ipcMain.on("add-todo", (e, todo) => {
+    let rawData = fs.readFileSync(app.getPath("userData") + "\\config.json");
+    let data = JSON.parse(rawData);
+
+    data.non_completed.push({ name: todo });
+    let newData = JSON.stringify(data);
+    fs.writeFileSync(app.getPath("userData") + "\\config.json", newData);
+});
+
+ipcMain.on("get-todos", () => {
+    let rawData = fs.readFileSync(app.getPath("userData") + "\\config.json");
+    let data = JSON.parse(rawData);
+    win.webContents.send("data", data);
 });
 
 if (isDev) {

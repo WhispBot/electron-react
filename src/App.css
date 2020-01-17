@@ -11,7 +11,7 @@ ul {
 
 body {
     overflow: hidden;
-    color: #ff00f2;
+    color: white;
     background: #111;
     font-family: "Montserrat", sans-serif;
     background-image: url("wallhaven-p2w1mj.jpg");
@@ -112,6 +112,7 @@ body {
 
 /* Style page content */
 #main {
+    height: 100vh;
     margin-top: 30px;
     margin-left: 160px; /* Same as the width of the sidebar */
     padding: 0px 10px;
@@ -148,13 +149,54 @@ body {
 
 .wrapper-home {
     overflow-y: auto;
-    height: 100vh;
 }
 
-.wrapper {
-    overflow-y: auto;
-    height: 100vh;
+.wrapper-todos {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    grid-template-rows: repeat(1000, 264px);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 10px;
+}
+
+.wrapper-todos div {
+    background: #00000080;
+    margin: 5px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.wrapper-todos h4 {
+    text-align: center;
+}
+
+.wrapper-todos li {
+    margin: 5px;
+    border-bottom: 1px solid #07bbd3;
+    padding: 10px;
+}
+.wrapper-todos li:hover {
+    background: gray;
+    border-bottom: 1px solid #07bbd3;
+}
+.wrapper-todos input {
+    color: white;
+    background: #111;
+    height: 20px;
+    width: 70%;
+
+    border: 1px solid #07bbd3;
+}
+.wrapper-todos button {
+    color: white;
+    background: #111;
+    height: 20px;
+    width: 20%;
+    margin-left: 20px;
+    border: 1px solid #07bbd3;
+}
+.wrapper-todos button:hover {
+    color: white;
+    background: #686868;
+    border: 1px solid #07bbd3;
 }

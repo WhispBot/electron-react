@@ -9,6 +9,9 @@ export default class sideBar extends Component {
                     <Link className="links" to="/">
                         <li>Home</li>
                     </Link>
+                    <Link className="links" to="/todos">
+                        <li>Todos</li>
+                    </Link>
                 </ul>
             </div>
         );
