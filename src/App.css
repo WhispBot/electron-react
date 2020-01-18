@@ -11,7 +11,7 @@ ul {
 
 body {
     overflow: hidden;
-    color: white;
+
     background: #111;
     font-family: "Montserrat", sans-serif;
     background-image: url("wallhaven-p2w1mj.jpg");
@@ -157,10 +157,13 @@ body {
 }
 
 .wrapper-todos li.active-li {
-    background: green;
+    border-color: #00e1ff;
+    color: white;
+    background: #8d359e44;
 }
 
 .wrapper-todos {
+    color: #686868;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 10px;
@@ -185,7 +188,7 @@ body {
     padding: 10px;
 }
 .wrapper-todos li:hover {
-    border-bottom: 1px solid #07bbd3;
+    color: #ffffff;
 }
 .wrapper-todos input {
     color: white;
