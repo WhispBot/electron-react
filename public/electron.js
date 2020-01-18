@@ -8,7 +8,8 @@ const {
 } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
-const fs = require("fs");
+const Store = require("electron-store");
+const store = new Store();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -44,6 +45,19 @@ function createWindow() {
     // Insert menu
     Menu.setApplicationMenu(mainMenu);
 }
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+function randomNum(num) {
+    let num1 = getRandomInt(num).toString();
+    let num2 = getRandomInt(num).toString();
+    let num3 = getRandomInt(num).toString();
+    let num4 = getRandomInt(num).toString();
+    let num5 = getRandomInt(num).toString();
+    let sum = num1 + num2 + num3 + num4 + num5;
+    return sum;
+}
 
 app.on("ready", () => {
     createWindow();
@@ -61,23 +75,45 @@ app.on("activate", () => {
     }
 });
 
-ipcMain.on("remove-todo", (e, todo) => {
-    console.log(todo);
+ipcMain.on("get-todos", (e, todo) => {
+    const data = store.get("todos");
+    win.webContents.send("data", data);
 });
 
 ipcMain.on("add-todo", (e, todo) => {
-    let rawData = fs.readFileSync(app.getPath("userData") + "\\config.json");
-    let data = JSON.parse(rawData);
-
-    data.non_completed.push({ name: todo });
-    let newData = JSON.stringify(data);
-    fs.writeFileSync(app.getPath("userData") + "\\config.json", newData);
+    const filter = store.get("todos").filter(item => item.name === todo);
+    const data = store.get("todos");
+    let num = randomNum(10);
+    store.set({ todos: [...data, { name: todo, key: num, text: "" }] });
 });
 
-ipcMain.on("get-todos", () => {
-    let rawData = fs.readFileSync(app.getPath("userData") + "\\config.json");
-    let data = JSON.parse(rawData);
-    win.webContents.send("data", data);
+ipcMain.on("remove-todo", (e, todo) => {
+    const filter = store.get("todos").filter(item => item.key !== todo);
+
+    store.set({ todos: filter });
+    win.webContents.send("data", filter);
+});
+
+ipcMain.on("add-text", (e, todo) => {
+    const data = store.get("todos");
+    const filter = store.get("todos").filter(item => {
+        if (item.key === todo) {
+            win.webContents.send("text", item.text);
+        }
+    });
+});
+
+ipcMain.on("save-text", (e, data) => {
+    const wantedItem = store.get("todos").filter(item => item.key === data[1]);
+    const filter = store.get("todos").filter(item => item.key !== data[1]);
+    store.set({ todos: filter });
+    const StoreData = store.get("todos");
+    store.set({
+        todos: [
+            ...StoreData,
+            { name: wantedItem[0].name, key: wantedItem[0].key, text: data[0] }
+        ]
+    });
 });
 
 if (isDev) {

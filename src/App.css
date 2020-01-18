@@ -105,6 +105,11 @@ body {
     display: block;
 }
 
+.sidenav a.active {
+    background-color: #8d359e;
+    color: white;
+}
+
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
@@ -151,6 +156,10 @@ body {
     overflow-y: auto;
 }
 
+.wrapper-todos li.active-li {
+    background: green;
+}
+
 .wrapper-todos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -176,7 +185,6 @@ body {
     padding: 10px;
 }
 .wrapper-todos li:hover {
-    background: gray;
     border-bottom: 1px solid #07bbd3;
 }
 .wrapper-todos input {
@@ -187,16 +195,35 @@ body {
 
     border: 1px solid #07bbd3;
 }
-.wrapper-todos button {
+.input-btn {
     color: white;
     background: #111;
     height: 20px;
     width: 20%;
-    margin-left: 20px;
+    margin-left: 6%;
     border: 1px solid #07bbd3;
 }
+
+.text {
+    color: white;
+    background: #111;
+    height: 20px;
+    width: 20%;
+    border: 1px solid #07bbd3;
+}
+
 .wrapper-todos button:hover {
     color: white;
     background: #686868;
+    border: 1px solid #07bbd3;
+}
+
+.wrapper-todos textarea {
+    background: none;
+    color: white;
+    font-size: 25px;
+    resize: none;
+    width: 99%;
+    height: 95%;
     border: 1px solid #07bbd3;
 }

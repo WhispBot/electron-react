@@ -1,12 +1,12 @@
 {
     "name": "void",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "a todo app",
     "author": "garut",
     "main": "public/electron.js",
     "homepage": "./",
     "build": {
-        "appId": "void.todo"
+        "appId": "void.game"
     },
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
@@ -14,6 +14,7 @@
         "@testing-library/user-event": "^7.1.2",
         "cross-env": "^6.0.3",
         "electron-is-dev": "^1.1.0",
+        "electron-store": "^5.1.0",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "react-scripts": "3.3.0"
