@@ -19,6 +19,9 @@ export default class home extends Component {
 
     removeItem = item => {
         ipcRenderer.send("remove-todo", item.target.id);
+        document.querySelector(
+            ".not-saved"
+        ).innerHTML = `${item.target.innerHTML} was removed!`;
     };
 
     addtodo = () => {
@@ -52,11 +55,17 @@ export default class home extends Component {
     };
 
     setActive = item => {
+        const notSaved = document.querySelector(".not-saved");
+
         let active = document.querySelector(".active-li");
         console.log();
         if (active === null) {
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
             document.getElementById(active.id).className = "";
         }
@@ -79,10 +88,32 @@ export default class home extends Component {
         ));
 
     save = item => {
-        const id = document.querySelector(".active-li").id;
-        let data = document.querySelector(".text").value;
-        let list = [data, id];
-        ipcRenderer.send("save-text", list);
+        const notSaved = document.querySelector(".not-saved");
+        try {
+            const id = document.querySelector(".active-li").id;
+            let data = document.querySelector(".text").value;
+            let list = [data, id];
+            ipcRenderer.send("save-text", list);
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = "Changes saved!";
+        } catch (error) {
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = "A todo is not selected!";
+        }
+    };
+
+    text = () => {
+        const notSaved = document.querySelector(".not-saved");
+
+        try {
+            const id = document.querySelector(".active-li").id;
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = "Not Saved!";
+        } catch (error) {
+            notSaved.style.display = "inline";
+            notSaved.innerHTML = "A todo is not selected!";
+            document.querySelector(".text").value = "";
+        }
     };
 
     render() {
@@ -107,6 +138,7 @@ export default class home extends Component {
                     <button className="text" onClick={this.save}>
                         save
                     </button>
+                    <span className="not-saved">Not Saved</span>
                 </div>
             </div>
         );

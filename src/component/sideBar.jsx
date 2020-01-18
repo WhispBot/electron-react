@@ -19,7 +19,7 @@ export default class sideBar extends Component {
                         <li>Home</li>
                     </Link>
                     <Link id="2" to="/todos" onClick={this.todos}>
-                        <li>Todos</li>
+                        <li>Todo List</li>
                     </Link>
                 </ul>
             </div>
