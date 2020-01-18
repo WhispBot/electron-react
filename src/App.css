@@ -207,14 +207,6 @@ body {
     border: 1px solid #07bbd3;
 }
 
-.text {
-    color: white;
-    background: #111;
-    height: 20px;
-    width: 20%;
-    border: 1px solid #07bbd3;
-}
-
 .wrapper-todos button:hover {
     color: white;
     background: #686868;
@@ -229,4 +221,18 @@ body {
     width: 99%;
     height: 95%;
     border: 1px solid #07bbd3;
+}
+
+.text {
+    color: white;
+    background: #111;
+    height: 20px;
+    width: 20%;
+    border: 1px solid #07bbd3;
+}
+
+.box-2 span {
+    display: none;
+    margin-left: 10px;
+    color: white;
 }
