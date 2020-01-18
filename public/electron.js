@@ -80,11 +80,35 @@ ipcMain.on("get-todos", (e, todo) => {
     win.webContents.send("data", data);
 });
 
+function dateFormat() {
+    let date_ob = new Date();
+    // current date
+    // adjust 0 before single digit date
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    // current year
+    let year = date_ob.getFullYear();
+    // current hours
+    let hours = date_ob.getHours();
+    // current minutes
+    let minutes = date_ob.getMinutes();
+    let format = `${date}-${month}-${year} ${hours}:${minutes}`;
+    let formatWith0 = `${date}-${month}-${year} ${hours}:0${minutes}`;
+    if (minutes > 9) {
+        return format;
+    } else {
+        return formatWith0;
+    }
+}
+
 ipcMain.on("add-todo", (e, todo) => {
     const filter = store.get("todos").filter(item => item.name === todo);
     const data = store.get("todos");
     let num = randomNum(10);
-    store.set({ todos: [...data, { name: todo, key: num, text: "" }] });
+    store.set({
+        todos: [...data, { name: todo, key: num, date: dateFormat(), text: "" }]
+    });
 });
 
 ipcMain.on("remove-todo", (e, todo) => {
@@ -92,6 +116,7 @@ ipcMain.on("remove-todo", (e, todo) => {
 
     store.set({ todos: filter });
     win.webContents.send("data", filter);
+    win.webContents.send("removed");
 });
 
 ipcMain.on("add-text", (e, todo) => {
@@ -111,7 +136,12 @@ ipcMain.on("save-text", (e, data) => {
     store.set({
         todos: [
             ...StoreData,
-            { name: wantedItem[0].name, key: wantedItem[0].key, text: data[0] }
+            {
+                name: wantedItem[0].name,
+                key: wantedItem[0].key,
+                date: wantedItem[0].date,
+                text: data[0]
+            }
         ]
     });
 });

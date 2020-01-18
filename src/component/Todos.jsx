@@ -22,6 +22,9 @@ export default class home extends Component {
         document.querySelector(
             ".not-saved"
         ).innerHTML = `${item.target.innerHTML} was removed!`;
+        ipcRenderer.on("removed", (e, item) => {
+            document.querySelector(".text").value = "";
+        });
     };
 
     addtodo = () => {
@@ -84,6 +87,7 @@ export default class home extends Component {
                 onClick={this.setActive}
             >
                 {item.name}
+                <span className="date">{item.date}</span>
             </li>
         ));
 
@@ -106,9 +110,9 @@ export default class home extends Component {
         const notSaved = document.querySelector(".not-saved");
 
         try {
-            const id = document.querySelector(".active-li").id;
+            const _ = document.querySelector(".active-li").id;
             notSaved.style.display = "inline";
-            notSaved.innerHTML = "Not Saved!";
+            notSaved.innerHTML = "Not saved!";
         } catch (error) {
             notSaved.style.display = "inline";
             notSaved.innerHTML = "A todo is not selected!";
@@ -138,7 +142,7 @@ export default class home extends Component {
                     <button className="text" onClick={this.save}>
                         save
                     </button>
-                    <span className="not-saved">Not Saved</span>
+                    <span className="not-saved"></span>
                 </div>
             </div>
         );

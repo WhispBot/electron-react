@@ -236,3 +236,12 @@ body {
     margin-left: 10px;
     color: white;
 }
+.box-1 li {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-1 span {
+    pointer-events: none;
+}
