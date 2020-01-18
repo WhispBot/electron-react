@@ -24,6 +24,7 @@ export default class home extends Component {
         ).innerHTML = `${item.target.innerHTML} was removed!`;
         ipcRenderer.on("removed", (e, item) => {
             document.querySelector(".text").value = "";
+            document.querySelector(".text").style.pointerEvents = "none";
         });
     };
 
@@ -63,10 +64,12 @@ export default class home extends Component {
         let active = document.querySelector(".active-li");
         console.log();
         if (active === null) {
+            document.querySelector(".text").style.pointerEvents = "auto";
             notSaved.style.display = "inline";
             notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
+            document.querySelector(".text").style.pointerEvents = "auto";
             notSaved.style.display = "inline";
             notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
@@ -102,7 +105,7 @@ export default class home extends Component {
             notSaved.innerHTML = "Changes saved!";
         } catch (error) {
             notSaved.style.display = "inline";
-            notSaved.innerHTML = "A todo is not selected!";
+            notSaved.innerHTML = "Select or add and select a todo!";
         }
     };
 
@@ -115,7 +118,7 @@ export default class home extends Component {
             notSaved.innerHTML = "Not saved!";
         } catch (error) {
             notSaved.style.display = "inline";
-            notSaved.innerHTML = "A todo is not selected!";
+            notSaved.innerHTML = "Select or add and select a todo!";
             document.querySelector(".text").value = "";
         }
     };
@@ -138,8 +141,12 @@ export default class home extends Component {
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
                 <div className="box-2">
-                    <textarea className="text" onChange={this.text} />
-                    <button className="text" onClick={this.save}>
+                    <textarea
+                        placeholder="select a todo and enter some text"
+                        className="text"
+                        onChange={this.text}
+                    />
+                    <button className="savebtn" onClick={this.save}>
                         save
                     </button>
                     <span className="not-saved"></span>
