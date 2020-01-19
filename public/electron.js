@@ -10,6 +10,9 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
 const store = new Store();
+const test = new Store({
+    name: "hello"
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

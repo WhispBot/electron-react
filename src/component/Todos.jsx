@@ -65,8 +65,10 @@ export default class home extends Component {
         let active = document.querySelector(".active-li");
         console.log();
         if (active === null) {
-            document.querySelector(".text").style.pointerEvents = "auto";
-            document.querySelector(".text").placeholder = "Add some text...";
+            const text = document.querySelector(".text");
+            text.focus();
+            text.style.pointerEvents = "auto";
+            text.placeholder = "Add some text...";
             notSaved.style.display = "inline";
             notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
@@ -115,7 +117,6 @@ export default class home extends Component {
         const notSaved = document.querySelector(".not-saved");
 
         try {
-            const _ = document.querySelector(".active-li").id;
             notSaved.style.display = "inline";
             notSaved.innerHTML = "Not saved!";
         } catch (error) {
@@ -131,6 +132,7 @@ export default class home extends Component {
                 <div className="box-1">
                     <section>
                         <input
+                            maxlength="20"
                             onKeyPressCapture={this.enterKeyPressed}
                             type="text"
                             className="input-item"

@@ -200,16 +200,20 @@ button {
     background: #111;
     height: 20px;
     width: 70%;
+    border: 1px solid #07bbd338;
+}
 
+.wrapper-todos input:focus {
     border: 1px solid #07bbd3;
 }
+
 .input-btn {
     color: white;
     background: #111;
     height: 20px;
     width: 20%;
     margin-left: 6%;
-    border: 1px solid #07bbd3;
+    border: 1px solid #07bbd338;
 }
 
 .wrapper-todos button:hover {
@@ -219,13 +223,14 @@ button {
 }
 
 .wrapper-todos textarea {
+    font-family: "Montserrat", sans-serif;
     background: none;
     color: white;
     font-size: 25px;
     resize: none;
     width: 99%;
     height: 95%;
-    border: 1px solid #07bbd3;
+    border: 1px solid #07bbd338;
 }
 
 .text {
@@ -241,7 +246,7 @@ button {
     background: #111;
     height: 20px;
     width: 20%;
-    border: 1px solid #07bbd3;
+    border: 1px solid #07bbd338;
 }
 
 .box-2 span {
