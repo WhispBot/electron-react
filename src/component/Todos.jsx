@@ -132,7 +132,7 @@ export default class home extends Component {
                 <div className="box-1">
                     <section>
                         <input
-                            maxlength="20"
+                            maxLength="20"
                             onKeyPressCapture={this.enterKeyPressed}
                             type="text"
                             className="input-item"

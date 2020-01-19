@@ -114,6 +114,9 @@ button {
     background-color: #8d359e;
     color: white;
 }
+.sidenav li {
+    pointer-events: none;
+}
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
