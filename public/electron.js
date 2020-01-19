@@ -64,8 +64,6 @@ function randomNum(num) {
 
 app.on("ready", () => {
     createWindow();
-    const imgURL = settings.get("imgURL");
-    //document.body.backgroundImage = `url("${imgURL}")`;
 });
 
 app.on("window-all-closed", () => {
@@ -118,7 +116,6 @@ ipcMain.on("add-todo", (e, todo) => {
 
 ipcMain.on("remove-todo", (e, todo) => {
     const filter = store.get("todos").filter(item => item.key !== todo);
-
     store.set({ todos: filter });
     win.webContents.send("data", filter);
     win.webContents.send("removed");
@@ -151,8 +148,8 @@ ipcMain.on("save-text", (e, data) => {
     });
 });
 
-ipcMain.on("settings:img", (e, img) => {
-    settings.set("imgURL", img);
+ipcMain.on("save:font", (e, font_size) => {
+    settings.set("Font_size", font_size);
 });
 
 if (isDev) {

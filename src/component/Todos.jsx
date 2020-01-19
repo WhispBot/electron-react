@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 const { ipcRenderer } = window.require("electron");
+const Store = window.require("electron-store");
+const settings = new Store({
+    name: "settings"
+});
 
 export default class home extends Component {
     constructor(props) {
@@ -7,11 +11,6 @@ export default class home extends Component {
         this.state = {
             todos: []
         };
-    }
-
-    componentDidMount() {
-        this._isMounted = true;
-
         ipcRenderer.send("get-todos");
         ipcRenderer.on("data", (e, data) => {
             this.setState({
@@ -19,8 +18,9 @@ export default class home extends Component {
             });
         });
     }
-    componentWillUnmount() {
-        this._isMounted = false;
+    componentDidMount() {
+        const fontSize = settings.get("Font_size");
+        document.querySelector(".text").style.fontSize = `${fontSize}pt`;
     }
 
     removeItem = item => {

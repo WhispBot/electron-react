@@ -4,9 +4,7 @@ const electron = window.require("electron");
 const ipcRenderer = electron.ipcRenderer;
 
 export default class home extends Component {
-    componentDidMount() {
-        ipcRenderer.on("sett", (e, img) => {});
-    }
+    componentDidMount() {}
     render() {
         return (
             <div id="main" className="wrapper-home">

@@ -298,3 +298,25 @@ button {
     grid-row: 2/4;
     background: #00000080;
 }
+.box-options1 section {
+    padding: 10px;
+    color: white;
+}
+
+.wrapper-options input {
+    margin-left: 10px;
+    color: white;
+    background: #111;
+    height: 20px;
+    width: 10%;
+    border: 1px solid #07bbd338;
+}
+
+.wrapper-options input:focus {
+    border: 1px solid #07bbd3;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

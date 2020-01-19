@@ -5,7 +5,6 @@ import FrameBar from "./component/frameBar";
 import SideBar from "./component/sideBar";
 import Todos from "./component/Todos";
 import Settings from "./component/settings";
-
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
