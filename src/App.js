@@ -4,7 +4,7 @@ import Home from "./component/home";
 import FrameBar from "./component/frameBar";
 import SideBar from "./component/sideBar";
 import Todos from "./component/Todos";
-import Options from "./component/options";
+import Settings from "./component/settings";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/todos" exact component={Todos} />
-                    <Route path="/options" exact component={Options} />
+                    <Route path="/settings" exact component={Settings} />
                 </Switch>
             </div>
         </Router>

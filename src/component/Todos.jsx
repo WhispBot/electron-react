@@ -8,13 +8,19 @@ export default class home extends Component {
             todos: []
         };
     }
-    componentWillMount() {
+
+    componentDidMount() {
+        this._isMounted = true;
+
         ipcRenderer.send("get-todos");
         ipcRenderer.on("data", (e, data) => {
             this.setState({
                 todos: data
             });
         });
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     removeItem = item => {
@@ -129,7 +135,7 @@ export default class home extends Component {
     render() {
         return (
             <div id="main" className="wrapper-todos">
-                <div className="box-1">
+                <div id="box-background-color" className="box-1">
                     <section>
                         <input
                             maxLength="20"
@@ -144,7 +150,7 @@ export default class home extends Component {
                     </section>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
-                <div className="box-2">
+                <div id="box-background-color" className="box-2">
                     <textarea
                         placeholder="select a todo and enter some text"
                         className="text"

@@ -11,7 +11,6 @@ ul {
 
 body {
     overflow: hidden;
-
     background: #111;
     font-family: "Montserrat", sans-serif;
     background-image: url("wallhaven-p2w1mj.jpg");
@@ -180,8 +179,9 @@ button {
 .wrapper-todos div {
     background: #00000080;
     margin: 5px;
+    margin-top: 10px;
     border-radius: 5px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     padding: 10px;
     overflow-y: auto;
 }
@@ -229,7 +229,7 @@ button {
     font-family: "Montserrat", sans-serif;
     background: none;
     color: white;
-    font-size: 25px;
+    font-size: 14pt;
     resize: none;
     width: 99%;
     height: 95%;
@@ -257,6 +257,7 @@ button {
     margin-left: 10px;
     color: white;
 }
+
 .box-1 li {
     cursor: pointer;
     display: flex;
@@ -265,4 +266,35 @@ button {
 
 .box-1 span {
     pointer-events: none;
+}
+
+.wrapper-options {
+    color: #686868;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.box-options {
+    grid-row: 1/4;
+    margin: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    background: #00000080;
+}
+.box-options1 {
+    margin: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background: #00000080;
+}
+
+.box-options2 {
+    margin: 5px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    grid-row: 2/4;
+    background: #00000080;
 }

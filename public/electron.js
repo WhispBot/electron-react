@@ -10,8 +10,8 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
 const store = new Store();
-const test = new Store({
-    name: "hello"
+const settings = new Store({
+    name: "settings"
 });
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -64,6 +64,8 @@ function randomNum(num) {
 
 app.on("ready", () => {
     createWindow();
+    const imgURL = settings.get("imgURL");
+    //document.body.backgroundImage = `url("${imgURL}")`;
 });
 
 app.on("window-all-closed", () => {
@@ -147,6 +149,10 @@ ipcMain.on("save-text", (e, data) => {
             }
         ]
     });
+});
+
+ipcMain.on("settings:img", (e, img) => {
+    settings.set("imgURL", img);
 });
 
 if (isDev) {

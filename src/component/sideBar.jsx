@@ -27,8 +27,8 @@ export default class sideBar extends Component {
                     <Link id="2" to="/todos" onClick={this.setActive}>
                         <li>Todo List</li>
                     </Link>
-                    <Link id="3" to="/options" onClick={this.setActive}>
-                        <li>Options</li>
+                    <Link id="3" to="/settings" onClick={this.setActive}>
+                        <li>Settings</li>
                     </Link>
                 </ul>
             </div>
