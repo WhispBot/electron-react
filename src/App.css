@@ -19,16 +19,21 @@ body {
     background-repeat: no-repeat;
 }
 
+button {
+    cursor: pointer;
+}
+
 .logo {
     margin-left: 10px;
-    color: #ffffff;
+    color: cyan;
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 14px;
+    text-shadow: 3px 2px red;
 }
 
 .frame-bar {
-    background: rgb(128, 128, 128);
+    background: #808080;
     overflow: hidden;
     display: flex;
     align-items: center;

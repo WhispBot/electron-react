@@ -18,13 +18,15 @@ export default class home extends Component {
     }
 
     removeItem = item => {
+        const text = document.querySelector(".text");
         ipcRenderer.send("remove-todo", item.target.id);
         document.querySelector(
             ".not-saved"
         ).innerHTML = `${item.target.innerHTML} was removed!`;
         ipcRenderer.on("removed", (e, item) => {
-            document.querySelector(".text").value = "";
-            document.querySelector(".text").style.pointerEvents = "none";
+            text.value = "";
+            text.style.pointerEvents = "none";
+            text.placeholder = "select a todo and enter some text";
         });
     };
 
@@ -60,16 +62,15 @@ export default class home extends Component {
 
     setActive = item => {
         const notSaved = document.querySelector(".not-saved");
-
         let active = document.querySelector(".active-li");
         console.log();
         if (active === null) {
             document.querySelector(".text").style.pointerEvents = "auto";
+            document.querySelector(".text").placeholder = "Add some text...";
             notSaved.style.display = "inline";
             notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
-            document.querySelector(".text").style.pointerEvents = "auto";
             notSaved.style.display = "inline";
             notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
@@ -90,6 +91,7 @@ export default class home extends Component {
                 onClick={this.setActive}
             >
                 {item.name}
+
                 <span className="date">{item.date}</span>
             </li>
         ));
