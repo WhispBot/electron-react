@@ -168,8 +168,32 @@ input::-webkit-inner-spin-button {
 
 /*************          wrapper home          *************/
 .wrapper-home {
+    color: #686868;
+    display: grid;
+    grid-template-columns: 400px;
+    grid-template-rows: 300px 300px;
     overflow-y: auto;
 }
+.wrapper-home .box-1 {
+    background: #00000080;
+    margin: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.wrapper-home h4 {
+    text-align: center;
+}
+.wrapper-home li {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: 1px;
+    padding: 2px;
+}
+
 /*************          wrapper home          *************/
 
 /*************          wrapper todos          *************/
@@ -183,7 +207,8 @@ input::-webkit-inner-spin-button {
 .draggable {
     background: #00000080;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    border-radius: 5px;
 }
 
 .draggable:hover {
@@ -195,7 +220,7 @@ input::-webkit-inner-spin-button {
     color: #686868;
     display: grid;
     grid-template-columns: 49.5% 1% 49.5%;
-    grid-template-rows: 1fr 10px;
+    grid-template-rows: 1fr;
 }
 
 .wrapper-todos .box-1,
@@ -204,7 +229,7 @@ input::-webkit-inner-spin-button {
     margin: 5px;
     margin-top: 10px;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     padding: 10px;
     overflow-y: auto;
 }
@@ -286,13 +311,13 @@ input::-webkit-inner-spin-button {
     border: 1px solid #07bbd338;
 }
 
-.box-2 span {
+.wrapper-todos .box-2 span {
     display: none;
     margin-left: 10px;
     color: white;
 }
 
-.box-1 li {
+.wrapper-todos .box-1 li {
     cursor: pointer;
     display: flex;
     justify-content: space-between;

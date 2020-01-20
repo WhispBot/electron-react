@@ -84,9 +84,24 @@ app.on("activate", () => {
     }
 });
 
-ipcMain.on("get-todos", (e, todo) => {
+ipcMain.on("get-todos", () => {
     const data = store.get("todos");
-    win.webContents.send("data", data);
+    win.webContents.send("todos", data);
+});
+
+ipcMain.on("get-old-todos", () => {
+    const data = store.get("todos");
+    let date_ob = new Date();
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    const newdata = data.filter(element => {
+        return (
+            element.date.split("-")[0] !== date ||
+            element.date.split("-")[1] !== month
+        );
+    });
+    win.webContents.send("old-todos", newdata);
 });
 
 function dateFormat() {

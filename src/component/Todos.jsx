@@ -12,7 +12,7 @@ export default class home extends Component {
             todos: []
         };
         ipcRenderer.send("get-todos");
-        ipcRenderer.on("data", (e, data) => {
+        ipcRenderer.on("todos", (e, data) => {
             this.setState({
                 todos: data
             });
