@@ -18,10 +18,12 @@ export default class home extends Component {
             });
         });
     }
-    componentDidMount() {
+    loadSettings = () => {
         const fontSize = settings.get("Font_size");
         document.querySelector(".text").style.fontSize = `${fontSize}pt`;
-    }
+    };
+
+    componentDidMount() {}
 
     removeItem = item => {
         const text = document.querySelector(".text");
@@ -67,20 +69,22 @@ export default class home extends Component {
     };
 
     setActive = item => {
-        const notSaved = document.querySelector(".not-saved");
+        const selected = document.querySelector(".not-saved");
         let active = document.querySelector(".active-li");
+        document.querySelector(".savebtn").innerHTML = "Save";
+
         console.log();
         if (active === null) {
             const text = document.querySelector(".text");
             text.focus();
             text.style.pointerEvents = "auto";
             text.placeholder = "Add some text...";
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
+            selected.style.display = "inline";
+            selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = `${item.target.innerHTML} is selected!`;
+            selected.style.display = "inline";
+            selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
             document.getElementById(active.id).className = "";
         }
@@ -101,36 +105,38 @@ export default class home extends Component {
                 {item.name}
 
                 <span className="date">{item.date}</span>
+                <p className="show-me">X</p>
             </li>
         ));
 
     save = item => {
-        const notSaved = document.querySelector(".not-saved");
+        const selected = document.querySelector(".not-saved");
+        const notSavedbtn = document.querySelector(".savebtn");
+
         try {
-            const id = document.querySelector(".active-li").id;
+            const active_li = document.querySelector(".active-li");
             let data = document.querySelector(".text").value;
-            let list = [data, id];
+            let list = [data, active_li.id];
             ipcRenderer.send("save-text", list);
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = "Changes saved!";
+            selected.style.display = "inline";
+            notSavedbtn.innerHTML = "Saved";
         } catch (error) {
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = "Select or add and select a todo!";
+            selected.style.display = "inline";
+            selected.innerHTML = "Select or add and select a todo!";
         }
     };
 
     text = () => {
-        const notSaved = document.querySelector(".not-saved");
-
+        const selected = document.querySelector(".savebtn");
         try {
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = "Not saved!";
+            selected.innerHTML = "Not saved";
         } catch (error) {
-            notSaved.style.display = "inline";
-            notSaved.innerHTML = "Select or add and select a todo!";
+            selected.innerHTML = "Select or add and select a todo!";
             document.querySelector(".text").value = "";
         }
     };
+
+    test = () => {};
 
     render() {
         return (
@@ -150,6 +156,7 @@ export default class home extends Component {
                     </section>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
+                <div className="draggable"></div>
                 <div id="box-background-color" className="box-2">
                     <textarea
                         placeholder="select a todo and enter some text"
@@ -157,7 +164,7 @@ export default class home extends Component {
                         onChange={this.text}
                     />
                     <button className="savebtn" onClick={this.save}>
-                        save
+                        Save
                     </button>
                     <span className="not-saved"></span>
                 </div>
