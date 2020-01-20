@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 const electron = window.require("electron");
 
-const ipcRenderer = electron.ipcRenderer;
+const Store = window.require("electron-store");
+const settings = new Store({
+    name: "settings"
+});
 
 export default class home extends Component {
-    componentDidMount() {}
+    componentDidMount() {
+        const backgroundColor = settings.get("settings.backgroundColor");
+        document.body.style.background = backgroundColor;
+    }
     render() {
         return (
             <div id="main" className="wrapper-home">

@@ -9,8 +9,10 @@ const ipcRenderer = electron.ipcRenderer;
 
 export default class home extends Component {
     componentDidMount() {
-        const fontSize = settings.get("Font_size");
+        const fontSize = settings.get("settings.font_size");
         document.querySelector(".change-font").placeholder = fontSize;
+        const backgroundColor = settings.get("settings.backgroundColor");
+        document.querySelector(".change-color").value = backgroundColor;
     }
 
     enterKeyPressed = target => {
@@ -30,6 +32,13 @@ export default class home extends Component {
 
     openSettings = () => {
         settings.openInEditor();
+    };
+
+    changeColor = item => {
+        const color = item.target.value;
+        ipcRenderer.send("save:color", color);
+
+        document.body.style.background = color;
     };
 
     render() {
@@ -52,7 +61,14 @@ export default class home extends Component {
                         />
                     </section>
                 </div>
-                <div id="box-background-color" className="box-options2"></div>
+                <div id="box-background-color" className="box-options2">
+                    <span>Background color</span>
+                    <input
+                        type="color"
+                        className="change-color"
+                        onChange={this.changeColor}
+                    />
+                </div>
             </div>
         );
     }

@@ -10,8 +10,14 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
 const store = new Store();
+const schema = {
+    settings: {
+        font_size: 14
+    }
+};
 const settings = new Store({
-    name: "settings"
+    name: "settings",
+    schema: schema
 });
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -149,7 +155,13 @@ ipcMain.on("save-text", (e, data) => {
 });
 
 ipcMain.on("save:font", (e, font_size) => {
-    settings.set("Font_size", font_size);
+    const data = settings.get("settings");
+    settings.set({ settings: { ...data, font_size: font_size } });
+});
+
+ipcMain.on("save:color", (e, background_Color) => {
+    const data = settings.get("settings");
+    settings.set({ settings: { ...data, backgroundColor: background_Color } });
 });
 
 if (isDev) {
