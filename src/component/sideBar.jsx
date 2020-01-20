@@ -17,6 +17,7 @@ export default class sideBar extends Component {
             <div id="mySidebar" className="sidenav">
                 <ul>
                     <Link
+                        draggable="false"
                         className="active"
                         id="1"
                         to="/"
@@ -24,10 +25,21 @@ export default class sideBar extends Component {
                     >
                         <li>Home</li>
                     </Link>
-                    <Link id="2" to="/todos" onClick={this.setActive}>
+
+                    <Link
+                        id="2"
+                        draggable="false"
+                        to="/todos"
+                        onClick={this.setActive}
+                    >
                         <li>Todo List</li>
                     </Link>
-                    <Link id="3" to="/settings" onClick={this.setActive}>
+                    <Link
+                        id="3"
+                        draggable="false"
+                        to="/settings"
+                        onClick={this.setActive}
+                    >
                         <li>Settings</li>
                     </Link>
                 </ul>
