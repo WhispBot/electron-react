@@ -68,6 +68,32 @@ function randomNum(num) {
     return sum;
 }
 
+function dateFormat() {
+    let date_ob = new Date();
+    // current date
+    // adjust 0 before single digit date
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    // current year
+    let year = date_ob.getFullYear();
+    // current hours
+    let hours = date_ob.getHours();
+    // current minutes
+    let minutes = date_ob.getMinutes();
+    let format = `${year}-${month}-${date} ${hours}:${minutes}`;
+    let formatWith0 = `${year}-${month}-${date} 0:${hours}${minutes}`;
+    if (minutes > 9) {
+        return format;
+    } else {
+        return formatWith0;
+    }
+}
+
+function customSort(a, b) {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+}
+
 app.on("ready", () => {
     createWindow();
 });
@@ -97,38 +123,17 @@ ipcMain.on("get-old-todos", () => {
     let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
     const newdata = data.filter(element => {
         return (
-            element.date.split("-")[0] !== date ||
+            element.date.split("-")[2].split(" ")[0] !== date ||
             element.date.split("-")[1] !== month
         );
     });
     win.webContents.send("old-todos", newdata);
 });
 
-function dateFormat() {
-    let date_ob = new Date();
-    // current date
-    // adjust 0 before single digit date
-    let date = ("0" + date_ob.getDate()).slice(-2);
-    // current month
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    // current year
-    let year = date_ob.getFullYear();
-    // current hours
-    let hours = date_ob.getHours();
-    // current minutes
-    let minutes = date_ob.getMinutes();
-    let format = `${date}-${month}-${year} ${hours}:${minutes}`;
-    let formatWith0 = `${date}-${month}-${year} ${hours}:0${minutes}`;
-    if (minutes > 9) {
-        return format;
-    } else {
-        return formatWith0;
-    }
-}
-
 ipcMain.on("add-todo", (e, todo) => {
     const filter = store.get("todos").filter(item => item.name === todo);
     const data = store.get("todos");
+    data.sort(customSort);
     let num = randomNum(10);
     store.set({
         todos: [...data, { name: todo, key: num, date: dateFormat(), text: "" }]
