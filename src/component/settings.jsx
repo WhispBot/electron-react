@@ -28,10 +28,18 @@ export default class home extends Component {
         }
     };
 
+    openSettings = () => {
+        settings.openInEditor();
+    };
+
     render() {
         return (
             <div id="main" className="wrapper-options">
-                <div id="box-background-color" className="box-options"></div>
+                <div id="box-background-color" className="box-options">
+                    <button onClick={this.openSettings}>
+                        Open settings file in editor
+                    </button>
+                </div>
                 <div id="box-background-color" className="box-options1">
                     <section>
                         <span>Font size in textbox</span>

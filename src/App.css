@@ -20,6 +20,9 @@ body {
 }
 
 button {
+    color: white;
+    background: #111;
+    border: 1px solid #07bbd338;
     cursor: pointer;
 }
 /*************         main            *************/
@@ -348,4 +351,16 @@ input::-webkit-inner-spin-button {
 .wrapper-options input:focus {
     border: 1px solid #07bbd3;
 }
+
+.wrapper-options button {
+    padding: 5px;
+    margin: 10px;
+}
+
+.wrapper-options button:hover {
+    color: white;
+    background: #686868;
+    border: 1px solid #07bbd3;
+}
+
 /*************          wrapper options          *************/
