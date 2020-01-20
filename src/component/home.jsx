@@ -7,6 +7,9 @@ const settings = new Store({
 });
 
 export default class home extends Component {
+    customSort(a, b) {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -14,11 +17,13 @@ export default class home extends Component {
         };
         ipcRenderer.send("get-old-todos");
         ipcRenderer.on("old-todos", (e, data) => {
+            data.sort(this.customSort);
             this.setState({
                 todos: data
             });
         });
     }
+
     componentDidMount() {
         const backgroundColor = settings.get("settings.backgroundColor");
         document.body.style.background = backgroundColor;
@@ -67,9 +72,13 @@ export default class home extends Component {
     render() {
         return (
             <div id="main" className="wrapper-home">
-                <div onMouseDown={this.mouseDown} className="box-1">
-                    <h4>Old todos</h4>
-                    <ul>{this.getList(this.state.todos)}</ul>
+                <div id="test" className="container">
+                    {
+                        <div onMouseDown={this.mouseDown} className="box-1">
+                            <h4>Old todos</h4>
+                            <ul>{this.getList(this.state.todos)}</ul>
+                        </div>
+                    }
                 </div>
             </div>
         );
