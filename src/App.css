@@ -175,13 +175,17 @@ input::-webkit-inner-spin-button {
     overflow-y: auto;
 }
 .wrapper-home .box-1 {
+    border: 1px solid #07bbd338;
+    cursor: move;
+    height: 200px;
+    width: 400px;
+    position: absolute;
     background: #00000080;
-    margin: 5px;
-    margin-top: 10px;
     border-radius: 5px;
-    margin-bottom: 40px;
     padding: 10px;
-    overflow-y: auto;
+}
+.wrapper-home .box-1:active {
+    border: 1px solid #07bbd3;
 }
 .wrapper-home h4 {
     text-align: center;
@@ -199,7 +203,7 @@ input::-webkit-inner-spin-button {
 /*************          wrapper todos          *************/
 
 .wrapper-todos li.active-li {
-    border-color: #00e1ff;
+    border-color: #07bbd3;
     color: white;
     background: #8d359e44;
 }
@@ -209,10 +213,10 @@ input::-webkit-inner-spin-button {
     margin-top: 10px;
     margin-bottom: 40px;
     border-radius: 5px;
+    cursor: col-resize;
 }
 
-.draggable:hover {
-    cursor: col-resize;
+.draggable:active {
     background: #3d3d3d80;
 }
 
@@ -389,3 +393,10 @@ input::-webkit-inner-spin-button {
 }
 
 /*************          wrapper options          *************/
+
+.draggable-div {
+    height: 100px;
+    width: 200px;
+    position: absolute;
+    background-color: cyan;
+}

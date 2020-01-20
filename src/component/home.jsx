@@ -38,10 +38,36 @@ export default class home extends Component {
             </li>
         ));
 
+    mouseDown = e => {
+        const el = document.querySelector(".box-1");
+
+        window.addEventListener("mousemove", mouseMove);
+        window.addEventListener("mouseup", mouseUp);
+        let prevX = e.clientX;
+        let prevY = e.clientY;
+        function mouseMove(e) {
+            let newX = prevX - e.clientX;
+            let newY = prevY - e.clientY;
+
+            const rect = el.getBoundingClientRect();
+
+            el.style.left = rect.left - newX + "px";
+            el.style.top = rect.top - newY + "px";
+
+            prevX = e.clientX;
+            prevY = e.clientY;
+        }
+
+        function mouseUp() {
+            window.removeEventListener("mousemove", mouseMove);
+            window.removeEventListener("mouseup", mouseUp);
+        }
+    };
+
     render() {
         return (
             <div id="main" className="wrapper-home">
-                <div className="box-1">
+                <div onMouseDown={this.mouseDown} className="box-1">
                     <h4>Old todos</h4>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
