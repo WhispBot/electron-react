@@ -1,3 +1,4 @@
+/*************         main            *************/
 * {
     user-select: none;
     outline: none;
@@ -13,7 +14,7 @@ body {
     overflow: hidden;
     background: #111;
     font-family: "Montserrat", sans-serif;
-    background-image: url("wallhaven-p2w1mj.jpg");
+    background: #272727;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -21,7 +22,9 @@ body {
 button {
     cursor: pointer;
 }
+/*************         main            *************/
 
+/*************       framebar              *************/
 .logo {
     margin-left: 10px;
     color: cyan;
@@ -80,6 +83,9 @@ button {
     color: red;
 }
 
+/*************       framebar              *************/
+
+/*************       sidebar             *************/
 .sidenav {
     display: flex;
     justify-content: space-between;
@@ -89,18 +95,17 @@ button {
 
 .sidenav {
     margin-top: 30px;
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 160px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
-    background-color: #111; /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: #111;
+    overflow-x: hidden;
     padding-top: 20px;
 }
 
-/* The navigation menu links */
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -117,28 +122,20 @@ button {
     pointer-events: none;
 }
 
-/* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
 }
 
-/* Style page content */
 #main {
     height: 100vh;
     margin-top: 30px;
-    margin-left: 160px; /* Same as the width of the sidebar */
+    margin-left: 160px;
     padding: 0px 10px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
-    }
-    .sidenav a {
-        font-size: 18px;
-    }
-}
+/*************       sidebar              *************/
+
+/*************          webkit styles           *************/
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -159,9 +156,20 @@ button {
     background: #615f5e;
 }
 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*************          webkit styles           *************/
+
+/*************          wrapper home          *************/
 .wrapper-home {
     overflow-y: auto;
 }
+/*************          wrapper home          *************/
+
+/*************          wrapper todos          *************/
 
 .wrapper-todos li.active-li {
     border-color: #00e1ff;
@@ -169,14 +177,26 @@ button {
     background: #8d359e44;
 }
 
+.draggable {
+    background: #00000080;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.draggable:hover {
+    cursor: col-resize;
+    background: #3d3d3d80;
+}
+
 .wrapper-todos {
     color: #686868;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 49.5% 1% 49.5%;
     grid-template-rows: 1fr 10px;
 }
 
-.wrapper-todos div {
+.wrapper-todos .box-1,
+.box-2 {
     background: #00000080;
     margin: 5px;
     margin-top: 10px;
@@ -186,18 +206,29 @@ button {
     overflow-y: auto;
 }
 
-.wrapper-todos h4 {
-    text-align: center;
-}
-
 .wrapper-todos li {
     margin: 5px;
     border-bottom: 1px solid #07bbd3;
     padding: 10px;
 }
 .wrapper-todos li:hover {
+    padding-right: 30px;
     color: #ffffff;
 }
+
+.wrapper-todos p {
+    display: none;
+}
+
+.wrapper-todos li:hover p {
+    display: block;
+    position: fixed;
+    left: 53%;
+}
+.show-me:hover {
+    color: red;
+}
+
 .wrapper-todos input {
     color: white;
     background: #111;
@@ -267,7 +298,9 @@ button {
 .box-1 span {
     pointer-events: none;
 }
+/*************          wrapper todos          *************/
 
+/*************          wrapper options          *************/
 .wrapper-options {
     color: #686868;
     display: grid;
@@ -315,8 +348,4 @@ button {
 .wrapper-options input:focus {
     border: 1px solid #07bbd3;
 }
-
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+/*************          wrapper options          *************/
