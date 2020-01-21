@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-const { ipcRenderer } = window.require("electron");
+import {
+    dateFormat,
+    getRandomInt,
+    customSort,
+    changeSaveButton
+} from "./todo-func-exports";
 const Store = window.require("electron-store");
 const save = new Store({ name: "save" });
 const settings = new Store({
@@ -9,7 +14,15 @@ export default class home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: []
+            todos: [
+                {
+                    name: "",
+                    key: "",
+                    date: "",
+                    text: ""
+                }
+            ],
+            currentItem: ""
         };
     }
 
@@ -20,42 +33,6 @@ export default class home extends Component {
         });
     }
 
-    customSort = (a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-    };
-
-    getRandomInt = max => {
-        return Math.floor(Math.random() * Math.floor(max));
-    };
-
-    dateFormat = () => {
-        let date_ob = new Date();
-        // current date
-        // adjust 0 before single digit date
-        let date = ("0" + date_ob.getDate()).slice(-2);
-        // current month
-        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-        // current year
-        let year = date_ob.getFullYear();
-        // current hours
-        let hours = date_ob.getHours();
-        // current minutes
-        let minutes = date_ob.getMinutes();
-        let format = `${year}-${month}-${date} ${hours}:${minutes}`;
-        let minutesWith0 = `${year}-${month}-${date} ${hours}:0${minutes}`;
-        let hoursWith0 = `${year}-${month}-${date} 0${hours}:${minutes}`;
-        let hourAndmunitssWith0 = `${year}-${month}-${date} 0${hours}:0${minutes}`;
-        if (hours < 9 && minutes < 9) {
-            return hourAndmunitssWith0;
-        }
-        if (minutes < 9) {
-            return minutesWith0;
-        }
-        if (hours < 9) {
-            return hoursWith0;
-        }
-        return format;
-    };
     loadSettings = () => {
         const fontSize = settings.get("Font_size");
         document.querySelector(".text").style.fontSize = `${fontSize}pt`;
@@ -75,32 +52,21 @@ export default class home extends Component {
     };
 
     addtodo = () => {
-        const item = document.querySelector(".input-item");
-        if (item.value !== "") {
-            let num = this.getRandomInt(10000).toString();
+        if (this.state.currentItem !== "") {
+            const num = getRandomInt(10000).toString();
             this.setState({
                 todos: [
                     {
-                        name: item.value,
+                        name: this.state.currentItem,
                         key: num,
-                        date: this.dateFormat(),
+                        date: dateFormat(),
                         text: ""
                     },
                     ...this.state.todos
-                ]
+                ],
+                currentItem: ""
             });
-            save.set({
-                todos: [
-                    {
-                        name: item.value,
-                        key: num,
-                        date: this.dateFormat(),
-                        text: ""
-                    },
-                    ...this.state.todos
-                ]
-            });
-            item.value = "";
+            document.querySelector(".input-item").value = "";
         }
     };
 
@@ -112,7 +78,7 @@ export default class home extends Component {
 
     setActive = item => {
         const text = document.querySelector(".text");
-        let active = document.querySelector(".active-li");
+        const active = document.querySelector(".active-li");
         document.querySelector(".savebtn").innerHTML = "Save";
         console.log();
         if (active === null) {
@@ -125,9 +91,12 @@ export default class home extends Component {
             document.getElementById(item.target.id).className = "active-li";
             document.getElementById(active.id).className = "";
         }
-        ipcRenderer.send("add-text", item.target.id);
-        ipcRenderer.on("text", (e, data) => {
-            document.querySelector(".text").value = data;
+        save.get("todos").map(e => {
+            const id = document.querySelector(".active-li").id;
+            if (e.key === id) {
+                text.value = e.text;
+            }
+            return 0;
         });
     };
 
@@ -146,17 +115,33 @@ export default class home extends Component {
         ));
 
     saveText = item => {
+        const text = document.querySelector(".text").value;
+        const id = document.querySelector(".active-li").id;
+        this.state.todos.filter(e => {
+            if (e.key === id) {
+                this.setState(prevState => ({
+                    todos: [
+                        {
+                            ...e,
+                            text: text
+                        },
+                        ...prevState.todos.filter(e => e.key !== id)
+                    ]
+                }));
+            }
+            return 0;
+        });
         const notSavedbtn = document.querySelector(".savebtn");
         notSavedbtn.innerHTML = "Saved";
     };
 
-    text = () => {
-        const selected = document.querySelector(".savebtn");
-        try {
-            selected.innerHTML = "Not saved";
-        } catch (error) {
-            document.querySelector(".text").value = "";
-        }
+    componentDidUpdate() {
+        this.state.todos.sort(customSort);
+        save.set({ todos: this.state.todos });
+    }
+
+    onChange = e => {
+        this.setState({ currentItem: e.target.value });
     };
 
     render() {
@@ -165,11 +150,12 @@ export default class home extends Component {
                 <div id="box-background-color" className="box-1">
                     <section>
                         <input
+                            onChange={e => this.onChange(e)}
                             maxLength="20"
                             onKeyPressCapture={this.enterKeyPressed}
                             type="text"
                             className="input-item"
-                            placeholder="Add someting to do!"
+                            placeholder="Add someting to do! limit 20 char"
                         />
                         <button className="add-btn" onClick={this.addtodo}>
                             Add
@@ -177,14 +163,13 @@ export default class home extends Component {
                     </section>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
-
                 <div id="box-background-color" className="box-2">
                     <textarea
                         placeholder="select a todo and enter some text"
                         className="text"
-                        onChange={this.text}
+                        onChange={changeSaveButton}
                     />
-                    <button className="savebtn" onClick={this.save}>
+                    <button className="savebtn" onClick={this.saveText}>
                         Save
                     </button>
                 </div>

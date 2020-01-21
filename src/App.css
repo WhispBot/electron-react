@@ -226,7 +226,7 @@ input::-webkit-inner-spin-button {
 
 .wrapper-todos input {
     padding: 5px;
-    width: 85%;
+    width: 75%;
     color: white;
     background: none;
     border: none;
@@ -235,7 +235,7 @@ input::-webkit-inner-spin-button {
 }
 
 .add-btn {
-    width: 10%;
+    width: 20%;
 }
 
 .savebtn {
