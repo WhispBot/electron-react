@@ -1,102 +1,127 @@
 import React, { Component } from "react";
 const { ipcRenderer } = window.require("electron");
 const Store = window.require("electron-store");
+const save = new Store({ name: "save" });
 const settings = new Store({
     name: "settings"
 });
-
 export default class home extends Component {
-    customSort(a, b) {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-    }
     constructor(props) {
         super(props);
         this.state = {
             todos: []
         };
-        ipcRenderer.send("get-todos");
-        ipcRenderer.on("todos", (e, data) => {
-            data.sort(this.customSort);
-            this.setState({
-                todos: data
-            });
+    }
+
+    componentDidMount() {
+        const test = save.get("todos");
+        this.setState({
+            todos: test
         });
     }
 
+    customSort = (a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    };
+
+    getRandomInt = max => {
+        return Math.floor(Math.random() * Math.floor(max));
+    };
+
+    dateFormat = () => {
+        let date_ob = new Date();
+        // current date
+        // adjust 0 before single digit date
+        let date = ("0" + date_ob.getDate()).slice(-2);
+        // current month
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+        // current year
+        let year = date_ob.getFullYear();
+        // current hours
+        let hours = date_ob.getHours();
+        // current minutes
+        let minutes = date_ob.getMinutes();
+        let format = `${year}-${month}-${date} ${hours}:${minutes}`;
+        let minutesWith0 = `${year}-${month}-${date} ${hours}:0${minutes}`;
+        let hoursWith0 = `${year}-${month}-${date} 0${hours}:${minutes}`;
+        let hourAndmunitssWith0 = `${year}-${month}-${date} 0${hours}:0${minutes}`;
+        if (hours < 9 && minutes < 9) {
+            return hourAndmunitssWith0;
+        }
+        if (minutes < 9) {
+            return minutesWith0;
+        }
+        if (hours < 9) {
+            return hoursWith0;
+        }
+        return format;
+    };
     loadSettings = () => {
         const fontSize = settings.get("Font_size");
         document.querySelector(".text").style.fontSize = `${fontSize}pt`;
     };
 
-    componentDidMount() {}
-
     removeItem = item => {
         const text = document.querySelector(".text");
-        ipcRenderer.send("remove-todo", item.target.id);
-        document.querySelector(
-            ".not-saved"
-        ).innerHTML = `${item.target.innerHTML} was removed!`;
-        ipcRenderer.on("removed", (e, item) => {
-            text.value = "";
-            text.style.pointerEvents = "none";
-            text.placeholder = "select a todo and enter some text";
-            ipcRenderer.send("get-todos");
-            ipcRenderer.on("todos", (e, data) => {
-                this.setState({
-                    todos: data
-                });
-            });
+        this.setState({
+            todos: this.state.todos.filter(todo => todo.key !== item.target.id)
         });
+        save.set({
+            todos: this.state.todos.filter(todo => todo.key !== item.target.id)
+        });
+        text.value = "";
+        text.style.pointerEvents = "none";
+        text.placeholder = "select a todo and enter some text";
     };
 
     addtodo = () => {
-        const input_item = document.querySelector(".input-item");
-        if (input_item.value !== "") {
-            ipcRenderer.send("add-todo", input_item.value);
-        }
-        input_item.value = "";
-        ipcRenderer.send("get-todos");
-        ipcRenderer.on("data", (e, data) => {
+        const item = document.querySelector(".input-item");
+        if (item.value !== "") {
+            let num = this.getRandomInt(10000).toString();
             this.setState({
-                todos: data
+                todos: [
+                    {
+                        name: item.value,
+                        key: num,
+                        date: this.dateFormat(),
+                        text: ""
+                    },
+                    ...this.state.todos
+                ]
             });
-        });
+            save.set({
+                todos: [
+                    {
+                        name: item.value,
+                        key: num,
+                        date: this.dateFormat(),
+                        text: ""
+                    },
+                    ...this.state.todos
+                ]
+            });
+            item.value = "";
+        }
     };
 
     enterKeyPressed = target => {
-        const input_item = document.querySelector(".input-item");
         if (target.charCode === 13) {
-            if (input_item.value !== "") {
-                ipcRenderer.send("add-todo", input_item.value);
-            }
-            input_item.value = "";
-            ipcRenderer.send("get-todos");
-            ipcRenderer.on("data", (e, data) => {
-                this.setState({
-                    todos: data
-                });
-            });
+            this.addtodo();
         }
     };
 
     setActive = item => {
-        const selected = document.querySelector(".not-saved");
         const text = document.querySelector(".text");
         let active = document.querySelector(".active-li");
         document.querySelector(".savebtn").innerHTML = "Save";
-
         console.log();
         if (active === null) {
             text.focus();
             text.style.pointerEvents = "auto";
             text.placeholder = "Add some text...";
-            selected.style.display = "inline";
-            selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
             text.focus();
-            selected.style.display = "inline";
-            selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
             document.getElementById(active.id).className = "";
         }
@@ -120,21 +145,9 @@ export default class home extends Component {
             </li>
         ));
 
-    save = item => {
-        const selected = document.querySelector(".not-saved");
+    saveText = item => {
         const notSavedbtn = document.querySelector(".savebtn");
-
-        try {
-            const active_li = document.querySelector(".active-li");
-            let data = document.querySelector(".text").value;
-            let list = [data, active_li.id];
-            ipcRenderer.send("save-text", list);
-            selected.style.display = "inline";
-            notSavedbtn.innerHTML = "Saved";
-        } catch (error) {
-            selected.style.display = "inline";
-            selected.innerHTML = "Select or add and select a todo!";
-        }
+        notSavedbtn.innerHTML = "Saved";
     };
 
     text = () => {
@@ -142,12 +155,9 @@ export default class home extends Component {
         try {
             selected.innerHTML = "Not saved";
         } catch (error) {
-            selected.innerHTML = "Select or add and select a todo!";
             document.querySelector(".text").value = "";
         }
     };
-
-    test = () => {};
 
     render() {
         return (
@@ -161,7 +171,7 @@ export default class home extends Component {
                             className="input-item"
                             placeholder="Add someting to do!"
                         />
-                        <button className="input-btn" onClick={this.addtodo}>
+                        <button className="add-btn" onClick={this.addtodo}>
                             Add
                         </button>
                     </section>
@@ -177,7 +187,6 @@ export default class home extends Component {
                     <button className="savebtn" onClick={this.save}>
                         Save
                     </button>
-                    <span className="not-saved"></span>
                 </div>
             </div>
         );

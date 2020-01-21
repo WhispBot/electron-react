@@ -206,18 +206,6 @@ input::-webkit-inner-spin-button {
     background: #8d359e44;
 }
 
-.draggable {
-    background: #00000080;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    border-radius: 5px;
-    cursor: col-resize;
-}
-
-.draggable:active {
-    background: #3d3d3d80;
-}
-
 .wrapper-todos {
     color: #686868;
     display: grid;
@@ -228,41 +216,35 @@ input::-webkit-inner-spin-button {
 .wrapper-todos .box-1,
 .box-2 {
     background: #00000080;
-    margin: 5px;
+    margin: 2px;
     margin-top: 10px;
     border-radius: 5px;
-    margin-bottom: 40px;
     padding: 10px;
     overflow-y: auto;
-}
-
-.wrapper-todos li {
-    margin: 5px;
-    border-bottom: 1px solid #07bbd3;
-    padding: 10px;
-}
-.wrapper-todos li:hover {
-    color: #ffffff;
+    margin-bottom: 40px;
 }
 
 .wrapper-todos input {
+    padding: 5px;
+    width: 85%;
     color: white;
-    background: #111;
-    height: 20px;
-    width: 70%;
-    border: 1px solid #07bbd338;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 14pt;
 }
 
-.wrapper-todos input:focus {
-    border: 1px solid #07bbd3;
+.add-btn {
+    width: 10%;
 }
 
-.input-btn {
-    color: white;
-    background: #111;
-    height: 20px;
+.savebtn {
     width: 20%;
-    margin-left: 6%;
+}
+
+.wrapper-todos button {
+    color: white;
+    background: #111;
     border: 1px solid #07bbd338;
 }
 
@@ -270,6 +252,16 @@ input::-webkit-inner-spin-button {
     color: white;
     background: #686868;
     border: 1px solid #07bbd3;
+}
+
+.wrapper-todos li {
+    margin: 5px;
+    border-bottom: 1px solid #07bbd338;
+    padding: 10px;
+}
+.wrapper-todos li:hover {
+    color: #ffffff;
+    border-color: #07bbd3;
 }
 
 .wrapper-todos textarea {
@@ -290,13 +282,6 @@ input::-webkit-inner-spin-button {
     height: 20px;
     width: 20%;
     border: 1px solid #07bbd3;
-}
-.savebtn {
-    color: white;
-    background: #111;
-    height: 20px;
-    width: 20%;
-    border: 1px solid #07bbd338;
 }
 
 .wrapper-todos .box-2 span {
