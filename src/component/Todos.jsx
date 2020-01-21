@@ -6,6 +6,9 @@ const settings = new Store({
 });
 
 export default class home extends Component {
+    customSort(a, b) {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -13,11 +16,13 @@ export default class home extends Component {
         };
         ipcRenderer.send("get-todos");
         ipcRenderer.on("todos", (e, data) => {
+            data.sort(this.customSort);
             this.setState({
                 todos: data
             });
         });
     }
+
     loadSettings = () => {
         const fontSize = settings.get("Font_size");
         document.querySelector(".text").style.fontSize = `${fontSize}pt`;
@@ -35,6 +40,12 @@ export default class home extends Component {
             text.value = "";
             text.style.pointerEvents = "none";
             text.placeholder = "select a todo and enter some text";
+            ipcRenderer.send("get-todos");
+            ipcRenderer.on("todos", (e, data) => {
+                this.setState({
+                    todos: data
+                });
+            });
         });
     };
 
@@ -70,12 +81,12 @@ export default class home extends Component {
 
     setActive = item => {
         const selected = document.querySelector(".not-saved");
+        const text = document.querySelector(".text");
         let active = document.querySelector(".active-li");
         document.querySelector(".savebtn").innerHTML = "Save";
 
         console.log();
         if (active === null) {
-            const text = document.querySelector(".text");
             text.focus();
             text.style.pointerEvents = "auto";
             text.placeholder = "Add some text...";
@@ -83,6 +94,7 @@ export default class home extends Component {
             selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
         } else if (active.id !== item.target.id) {
+            text.focus();
             selected.style.display = "inline";
             selected.innerHTML = `${item.target.innerHTML} is selected!`;
             document.getElementById(item.target.id).className = "active-li";
@@ -105,7 +117,6 @@ export default class home extends Component {
                 {item.name}
 
                 <span className="date">{item.date}</span>
-                <p className="show-me">X</p>
             </li>
         ));
 

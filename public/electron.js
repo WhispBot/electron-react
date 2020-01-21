@@ -82,16 +82,19 @@ function dateFormat() {
     // current minutes
     let minutes = date_ob.getMinutes();
     let format = `${year}-${month}-${date} ${hours}:${minutes}`;
-    let formatWith0 = `${year}-${month}-${date} 0:${hours}${minutes}`;
-    if (minutes > 9) {
-        return format;
-    } else {
-        return formatWith0;
+    let minutesWith0 = `${year}-${month}-${date} ${hours}:0${minutes}`;
+    let hoursWith0 = `${year}-${month}-${date} 0${hours}:${minutes}`;
+    let hourAndmunitssWith0 = `${year}-${month}-${date} 0${hours}:0${minutes}`;
+    if (hours < 9 && minutes < 9) {
+        return hourAndmunitssWith0;
     }
-}
-
-function customSort(a, b) {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
+    if (minutes < 9) {
+        return minutesWith0;
+    }
+    if (hours < 9) {
+        return hoursWith0;
+    }
+    return format;
 }
 
 app.on("ready", () => {
@@ -133,7 +136,7 @@ ipcMain.on("get-old-todos", () => {
 ipcMain.on("add-todo", (e, todo) => {
     const filter = store.get("todos").filter(item => item.name === todo);
     const data = store.get("todos");
-    data.sort(customSort);
+
     let num = randomNum(10);
     store.set({
         todos: [...data, { name: todo, key: num, date: dateFormat(), text: "" }]

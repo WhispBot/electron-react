@@ -243,21 +243,7 @@ input::-webkit-inner-spin-button {
     padding: 10px;
 }
 .wrapper-todos li:hover {
-    padding-right: 30px;
     color: #ffffff;
-}
-
-.wrapper-todos p {
-    display: none;
-}
-
-.wrapper-todos li:hover p {
-    display: block;
-    position: fixed;
-    left: 53%;
-}
-.show-me:hover {
-    color: red;
 }
 
 .wrapper-todos input {
