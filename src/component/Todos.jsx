@@ -167,7 +167,7 @@ export default class home extends Component {
                     </section>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
-                <div className="draggable"></div>
+
                 <div id="box-background-color" className="box-2">
                     <textarea
                         placeholder="select a todo and enter some text"
