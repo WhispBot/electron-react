@@ -169,22 +169,21 @@ input::-webkit-inner-spin-button {
 /*************          wrapper home          *************/
 .wrapper-home {
     color: #686868;
-    display: grid;
-    grid-template-columns: 400px;
-    grid-template-rows: 300px 300px;
     overflow-y: auto;
+    box-sizing: border-box;
 }
-.wrapper-home .box-1 {
+.wrapper-home .draggable {
     border: 1px solid #07bbd338;
     cursor: move;
     height: 200px;
     width: 400px;
-    position: absolute;
+    box-sizing: border-box;
     background: #00000080;
     border-radius: 5px;
     padding: 10px;
 }
-.wrapper-home .box-1:active {
+.wrapper-home .draggable:active {
+    background: #00000080;
     border: 1px solid #07bbd3;
 }
 .wrapper-home h4 {
@@ -195,7 +194,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
     margin: 1px;
-    padding: 2px;
+    padding: 3px;
 }
 
 /*************          wrapper home          *************/
