@@ -1,11 +1,4 @@
-const {
-    app,
-    BrowserWindow,
-    Menu,
-    ipcMain,
-    dialog,
-    MenuItem
-} = require("electron");
+const { app, BrowserWindow, Menu, ipcMain, MenuItem } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 
@@ -39,6 +32,7 @@ function createWindow() {
     win.on("closed", () => {
         win = null;
     });
+
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     // Insert menu
     Menu.setApplicationMenu(mainMenu);

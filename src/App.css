@@ -22,7 +22,7 @@ body {
 button {
     color: white;
     background: #111;
-    border: 1px solid #07bbd338;
+    border: 1px solid #1db95462;
     cursor: pointer;
 }
 /*************         main            *************/
@@ -30,15 +30,14 @@ button {
 /*************       framebar              *************/
 .logo {
     margin-left: 10px;
-    color: cyan;
+    color: #1db954;
     text-transform: uppercase;
     letter-spacing: 5px;
     font-size: 14px;
-    text-shadow: 3px 2px red;
 }
 
 .frame-bar {
-    background: #808080;
+    background: #111;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -49,6 +48,7 @@ button {
     width: 100%;
     z-index: 1;
     height: 30px;
+    border-bottom: 1px solid #1db95462;
 }
 
 .frame-bar-links {
@@ -89,12 +89,6 @@ button {
 /*************       framebar              *************/
 
 /*************       sidebar             *************/
-.sidenav {
-    display: flex;
-    justify-content: space-between;
-
-    flex-direction: column;
-}
 
 .sidenav {
     margin-top: 30px;
@@ -114,19 +108,19 @@ button {
     text-decoration: none;
     font-size: 25px;
     color: #818181;
-    display: block;
+    display: flex;
 }
 
 .sidenav a.active {
-    background-color: #8d359e;
-    color: white;
+    font-size: 30px;
+    color: #1db954;
 }
 .sidenav li {
     pointer-events: none;
 }
 
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #1db954;
 }
 
 #main {
@@ -201,7 +195,7 @@ input::-webkit-inner-spin-button {
 /*************          wrapper todos          *************/
 
 .wrapper-todos li.active-li {
-    border-color: #07bbd3;
+    border-color: #1db954;
     color: white;
     background: #8d359e44;
 }
@@ -243,25 +237,24 @@ input::-webkit-inner-spin-button {
 }
 
 .wrapper-todos button {
-    color: white;
+    color: #686868;
     background: #111;
-    border: 1px solid #07bbd338;
+    border: 1px solid #1db95462;
 }
 
 .wrapper-todos button:hover {
     color: white;
-    background: #686868;
-    border: 1px solid #07bbd3;
+    border: 1px solid #1db954;
 }
 
 .wrapper-todos li {
     margin: 5px;
-    border-bottom: 1px solid #07bbd338;
+    border-bottom: 1px solid #1db95462;
     padding: 10px;
 }
 .wrapper-todos li:hover {
     color: #ffffff;
-    border-color: #07bbd3;
+    border-color: #1db954;
 }
 
 .wrapper-todos textarea {
@@ -272,7 +265,10 @@ input::-webkit-inner-spin-button {
     resize: none;
     width: 99%;
     height: 95%;
-    border: 1px solid #07bbd338;
+    border: 1px solid #1db95462;
+}
+.wrapper-todos textarea:focus {
+    border: 1px solid #1db954;
 }
 
 .text {
@@ -281,7 +277,7 @@ input::-webkit-inner-spin-button {
     background: #111;
     height: 20px;
     width: 20%;
-    border: 1px solid #07bbd3;
+    border: 1px solid #1db954;
 }
 
 .wrapper-todos .box-2 span {
@@ -343,22 +339,24 @@ input::-webkit-inner-spin-button {
     background: #111;
     height: 20px;
     width: 10%;
-    border: 1px solid #07bbd338;
+    border: 1px solid #1db95462;
 }
 
 .wrapper-options input:focus {
-    border: 1px solid #07bbd3;
+    border: 1px solid #1db954;
 }
 
 .wrapper-options button {
+    color: #686868;
     padding: 5px;
     margin: 10px;
+    border: 1px solid #1db95462;
 }
 
 .wrapper-options button:hover {
     color: white;
     background: #686868;
-    border: 1px solid #07bbd3;
+    border: 1px solid #1db954;
 }
 
 /*************          wrapper options          *************/
@@ -367,5 +365,5 @@ input::-webkit-inner-spin-button {
     height: 100px;
     width: 200px;
     position: absolute;
-    background-color: cyan;
+    background-color: #1db954;
 }
