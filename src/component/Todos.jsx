@@ -4,7 +4,7 @@ import {
     getRandomInt,
     customSort,
     changeSaveButton
-} from "./todo-func-exports";
+} from "./exports/todo-func-exports";
 const Store = window.require("electron-store");
 const save = new Store({ name: "save" });
 const settings = new Store({
