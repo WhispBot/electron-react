@@ -197,7 +197,8 @@ input::-webkit-inner-spin-button {
 .wrapper-todos li.active-li {
     border-color: #1db954;
     color: white;
-    background: #8d359e44;
+    background: #363636;
+    font-size: 15pt;
 }
 
 .wrapper-todos {
@@ -209,7 +210,7 @@ input::-webkit-inner-spin-button {
 
 .wrapper-todos .box-1,
 .box-2 {
-    background: #00000080;
+    background: #111;
     margin: 2px;
     margin-top: 10px;
     border-radius: 5px;

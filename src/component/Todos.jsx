@@ -7,6 +7,7 @@ import {
 } from "./exports/todo-func-exports";
 const Store = window.require("electron-store");
 const save = new Store({ name: "save" });
+const completed = new Store({ name: "completed" });
 const settings = new Store({
     name: "settings"
 });
@@ -27,10 +28,14 @@ export default class home extends Component {
     }
 
     componentDidMount() {
-        const test = save.get("todos");
-        this.setState({
-            todos: test
-        });
+        try {
+            const test = save.get("todos");
+            this.setState({
+                todos: test
+            });
+        } catch (error) {
+            save.set({ todos: [] });
+        }
     }
 
     loadSettings = () => {
@@ -43,12 +48,18 @@ export default class home extends Component {
         this.setState({
             todos: this.state.todos.filter(todo => todo.key !== item.target.id)
         });
-        save.set({
-            todos: this.state.todos.filter(todo => todo.key !== item.target.id)
+        const data = completed.get("completed");
+        this.state.todos.filter(todo => {
+            if (todo.key === item.target.id) {
+                completed.set({
+                    completed: [...data, todo]
+                });
+            }
         });
+
         text.value = "";
         text.style.pointerEvents = "none";
-        text.placeholder = "select a todo and enter some text";
+        text.placeholder = "Select a todo...";
     };
 
     addtodo = () => {
@@ -155,7 +166,7 @@ export default class home extends Component {
                             onKeyPressCapture={this.enterKeyPressed}
                             type="text"
                             className="input-item"
-                            placeholder="Add someting to do! limit 20 char"
+                            placeholder="What to do?!"
                         />
                         <button className="add-btn" onClick={this.addtodo}>
                             Add
@@ -165,7 +176,7 @@ export default class home extends Component {
                 </div>
                 <div id="box-background-color" className="box-2">
                     <textarea
-                        placeholder="select a todo and enter some text"
+                        placeholder="Select a todo..."
                         className="text"
                         onChange={changeSaveButton}
                     />

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 const electron = window.require("electron");
 const ipcRenderer = electron.ipcRenderer;
 const Store = window.require("electron-store");
+const completed = new Store({ name: "completed" });
 const settings = new Store({
     name: "settings"
 });
@@ -13,7 +14,8 @@ export default class home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: []
+            todos: [],
+            completed: []
         };
         ipcRenderer.send("get-old-todos");
         ipcRenderer.on("old-todos", (e, data) => {
@@ -25,6 +27,15 @@ export default class home extends Component {
     }
 
     componentDidMount() {
+        try {
+            const item = completed.get("completed");
+            this.setState({
+                completed: item
+            });
+        } catch (error) {
+            console.log(error);
+            //completed.set({ completed: [] });
+        }
         const backgroundColor = settings.get("settings.backgroundColor");
         document.body.style.background = backgroundColor;
     }
@@ -49,6 +60,20 @@ export default class home extends Component {
         div.style.height = "200px";
     };
 
+    getList = items =>
+        items.map((item, i) => (
+            <li
+                id={`${item.key}`}
+                key={`${item.key}`}
+                onDoubleClick={this.removeItem}
+                onClick={this.setActive}
+            >
+                {item.name}
+
+                <span className="date">{item.date}</span>
+            </li>
+        ));
+
     render() {
         return (
             <div id="main" className="wrapper-home">
@@ -58,6 +83,7 @@ export default class home extends Component {
                 </div>
                 <div className="completed">
                     <h4>Completed</h4>
+                    <ul>{this.getList(this.state.completed)}</ul>
                 </div>
             </div>
         );
