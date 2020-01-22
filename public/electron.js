@@ -1,6 +1,10 @@
 const { app, BrowserWindow, Menu, ipcMain, MenuItem } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
+const Store = require("electron-store");
+const settings = new Store({
+    name: "settings"
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
