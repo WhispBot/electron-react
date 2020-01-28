@@ -20,26 +20,26 @@ body {
 }
 
 button {
+    border-radius: 5px;
     color: white;
     background: #111;
     border: 1px solid #1db95462;
     cursor: pointer;
 }
+
+#main {
+    height: 100vh;
+    margin-top: 30px;
+    padding: 0px 10px;
+}
 /*************         main            *************/
 
 /*************       framebar              *************/
-.logo {
-    margin-left: 10px;
-    color: #1db954;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-size: 14px;
-}
-
 .frame-bar {
-    background: #111;
-    overflow: hidden;
     display: flex;
+    justify-content: space-between;
+    color: white;
+    overflow: hidden;
     align-items: center;
     justify-content: space-between;
     -webkit-app-region: drag;
@@ -48,10 +48,52 @@ button {
     width: 100%;
     z-index: 1;
     height: 30px;
-    border-bottom: 1px solid #1db95462;
+    background: #111;
+    font-family: "Segoe MDL2 Assets", sans-serif;
 }
 
-.frame-bar-links {
+.menu {
+    -webkit-app-region: no-drag;
+    display: flex;
+    justify-content: space-around;
+    height: 30px;
+    list-style: none;
+}
+
+.menu li a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu li {
+    padding-top: 6px;
+    -webkit-app-region: no-drag;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+    text-align: center;
+}
+
+.burger,
+.settings {
+    width: 50px;
+}
+
+.Home,
+.todos-menu {
+    width: 80px;
+}
+
+.todos-menu:hover,
+.settings:hover,
+.burger:hover,
+.Home:hover {
+    background: #ffffff2c;
+}
+
+.frame-bar-buttons {
+    background: #111;
     font-family: "Segoe MDL2 Assets", sans-serif;
     display: flex;
     justify-content: space-around;
@@ -59,78 +101,31 @@ button {
     height: 30px;
 }
 
-.frame-bar-links p {
-    padding-top: 5px;
-}
-
-/* Styling for the navbar links*/
-.frame-bar-links li {
-    padding: 6px;
+.frame-bar-buttons li {
+    padding-top: 6px;
     -webkit-app-region: no-drag;
     color: #ffffff;
     text-decoration: none;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 10pt;
     list-style: none;
     text-align: center;
     width: 100px;
 }
-
-.min:hover,
-.max:hover {
-    background-color: #ffffff2c;
+.frame-bar-buttons li p {
+    padding-top: 2px;
+}
+.min-btn:hover,
+.max-btn:hover {
+    background: #ffffff2c;
 }
 
-.quit:hover {
-    background-color: #ffffff2c;
-    color: red;
+.quit-btn:hover {
+    background: red;
+    color: white;
 }
 
 /*************       framebar              *************/
-
-/*************       sidebar             *************/
-
-.sidenav {
-    margin-top: 30px;
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: flex;
-}
-
-.sidenav a.active {
-    font-size: 30px;
-    color: #1db954;
-}
-.sidenav li {
-    pointer-events: none;
-}
-
-.sidenav a:hover {
-    color: #1db954;
-}
-
-#main {
-    height: 100vh;
-    margin-top: 30px;
-    margin-left: 160px;
-    padding: 0px 10px;
-}
-
-/*************       sidebar              *************/
 
 /*************          webkit styles           *************/
 
@@ -195,10 +190,10 @@ input::-webkit-inner-spin-button {
 /*************          wrapper todos          *************/
 
 .wrapper-todos li.active-li {
-    border-color: #1db954;
+    border-left: 3px solid #aa4586;
     color: white;
     background: #363636;
-    font-size: 15pt;
+    font-size: 13pt;
 }
 
 .wrapper-todos {
@@ -208,20 +203,30 @@ input::-webkit-inner-spin-button {
     grid-template-rows: 1fr;
 }
 
-.wrapper-todos .box-1,
-.box-2 {
+.wrapper-todos .box-1 {
     background: #111;
     margin: 2px;
     margin-top: 10px;
     border-radius: 5px;
     padding: 10px;
     overflow-y: auto;
+    margin-right: 5px;
+    margin-bottom: 40px;
+}
+
+.wrapper-todos .box-2 {
+    background: #111;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 20px 20px 20px 10px;
+    border-radius: 5px;
+    margin-left: 5px;
     margin-bottom: 40px;
 }
 
 .wrapper-todos input {
     padding: 5px;
-    width: 75%;
+    width: 80%;
     color: white;
     background: none;
     border: none;
@@ -230,32 +235,31 @@ input::-webkit-inner-spin-button {
 }
 
 .add-btn {
-    width: 20%;
+    width: 10%;
 }
 
 .savebtn {
-    width: 20%;
+    margin-left: 4px;
+    width: 10%;
 }
 
 .wrapper-todos button {
     color: #686868;
-    background: #111;
-    border: 1px solid #1db95462;
+    background: none;
+    border: 1px solid #363636;
 }
 
 .wrapper-todos button:hover {
     color: white;
-    border: 1px solid #1db954;
+    border: 1px solid white;
 }
 
 .wrapper-todos li {
     margin: 5px;
-    border-bottom: 1px solid #1db95462;
-    padding: 10px;
+    padding: 5px;
 }
 .wrapper-todos li:hover {
     color: #ffffff;
-    border-color: #1db954;
 }
 
 .wrapper-todos textarea {
@@ -264,12 +268,9 @@ input::-webkit-inner-spin-button {
     color: white;
     font-size: 14pt;
     resize: none;
-    width: 99%;
-    height: 95%;
-    border: 1px solid #1db95462;
-}
-.wrapper-todos textarea:focus {
-    border: 1px solid #1db954;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .text {
@@ -278,13 +279,6 @@ input::-webkit-inner-spin-button {
     background: #111;
     height: 20px;
     width: 20%;
-    border: 1px solid #1db954;
-}
-
-.wrapper-todos .box-2 span {
-    display: none;
-    margin-left: 10px;
-    color: white;
 }
 
 .wrapper-todos .box-1 li {
@@ -293,9 +287,25 @@ input::-webkit-inner-spin-button {
     justify-content: space-between;
 }
 
-.box-1 span {
+.wrapper-todos .box-1 span {
     pointer-events: none;
 }
+
+.wrapper-todos .box-1 section {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.wrapper-todos .box-2 section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.wrapper-todos .box-2 {
+    overflow: hidden;
+}
+
 /*************          wrapper todos          *************/
 
 /*************          wrapper options          *************/
@@ -312,13 +322,13 @@ input::-webkit-inner-spin-button {
     border-radius: 5px;
     margin-top: 10px;
     margin-bottom: 40px;
-    background: #00000080;
+    background: #111;
 }
 .box-options1 {
     margin: 5px;
     margin-top: 10px;
     border-radius: 5px;
-    background: #00000080;
+    background: #111;
 }
 
 .box-options2 {
@@ -327,7 +337,7 @@ input::-webkit-inner-spin-button {
     margin-top: 10px;
     border-radius: 5px;
     grid-row: 2/4;
-    background: #00000080;
+    background: #111;
 }
 .box-options1 section {
     padding: 10px;
@@ -335,36 +345,30 @@ input::-webkit-inner-spin-button {
 }
 
 .wrapper-options input {
+    border-radius: 5px;
     margin-left: 10px;
     color: white;
     background: #111;
     height: 20px;
     width: 10%;
-    border: 1px solid #1db95462;
+    border: 1px solid #363636;
 }
 
 .wrapper-options input:focus {
-    border: 1px solid #1db954;
+    border: 1px solid white;
 }
 
 .wrapper-options button {
-    color: #686868;
     padding: 5px;
     margin: 10px;
-    border: 1px solid #1db95462;
+    color: #686868;
+    background: none;
+    border: 1px solid #363636;
 }
 
 .wrapper-options button:hover {
     color: white;
-    background: #686868;
-    border: 1px solid #1db954;
+    border: 1px solid white;
 }
 
 /*************          wrapper options          *************/
-
-.draggable-div {
-    height: 100px;
-    width: 200px;
-    position: absolute;
-    background-color: #1db954;
-}

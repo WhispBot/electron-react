@@ -126,24 +126,26 @@ export default class home extends Component {
         ));
 
     saveText = item => {
-        const text = document.querySelector(".text").value;
-        const id = document.querySelector(".active-li").id;
-        this.state.todos.filter(e => {
-            if (e.key === id) {
-                this.setState(prevState => ({
-                    todos: [
-                        {
-                            ...e,
-                            text: text
-                        },
-                        ...prevState.todos.filter(e => e.key !== id)
-                    ]
-                }));
-            }
-            return 0;
-        });
-        const notSavedbtn = document.querySelector(".savebtn");
-        notSavedbtn.innerHTML = "Saved";
+        try {
+            const text = document.querySelector(".text").value;
+            const id = document.querySelector(".active-li").id;
+            this.state.todos.filter(e => {
+                if (e.key === id) {
+                    this.setState(prevState => ({
+                        todos: [
+                            {
+                                ...e,
+                                text: text
+                            },
+                            ...prevState.todos.filter(e => e.key !== id)
+                        ]
+                    }));
+                }
+                return 0;
+            });
+            const notSavedbtn = document.querySelector(".savebtn");
+            notSavedbtn.innerHTML = "Saved";
+        } catch (error) {}
     };
 
     componentDidUpdate() {
@@ -171,6 +173,9 @@ export default class home extends Component {
                         <button className="add-btn" onClick={this.addtodo}>
                             Add
                         </button>
+                        <button className="savebtn" onClick={this.saveText}>
+                            Save
+                        </button>
                     </section>
                     <ul>{this.getList(this.state.todos)}</ul>
                 </div>
@@ -180,9 +185,6 @@ export default class home extends Component {
                         className="text"
                         onChange={changeSaveButton}
                     />
-                    <button className="savebtn" onClick={this.saveText}>
-                        Save
-                    </button>
                 </div>
             </div>
         );

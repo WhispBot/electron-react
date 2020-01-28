@@ -2,17 +2,48 @@ const { app, BrowserWindow, Menu, ipcMain, MenuItem } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
+const contextMenu = require("electron-context-menu");
+const completed = new Store({ name: "completed" });
+const save = new Store({ name: "save" });
 const settings = new Store({
     name: "settings"
 });
+contextMenu({
+    prepend: (defaultActions, params, browserWindow) => [
+        {
+            label: "Clear completed todos",
+            // Only show it when right-clicking images
+            visible: params.pageURL == "http://localhost:3000/#/",
+            click: () => {
+                completed.set({ completed: [] });
+            }
+        },
+        {
+            label: "clear todos",
+            // Only show it when right-clicking images
+            visible: params.pageURL == "http://localhost:3000/#/todos",
+            click: () => {
+                save.set({ todos: [] });
+            }
+        },
+        {
+            label: "save",
+            // Only show it when right-clicking images
+            visible: params.pageURL == "http://localhost:3000/#/settings",
+            click: () => {
+                console.log(params.pageURL);
+            }
+        }
+    ]
+});
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let win;
 const mainMenuTemplate = [];
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
+        Width: 1200,
+        Height: 700,
         minWidth: 1050,
         minHeight: 600,
         resizable: true,
@@ -36,14 +67,13 @@ function createWindow() {
     win.on("closed", () => {
         win = null;
     });
-
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    // Insert menu
-    Menu.setApplicationMenu(mainMenu);
 }
 
 app.on("ready", () => {
     createWindow();
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert menu
+    Menu.setApplicationMenu(mainMenu);
 });
 
 app.on("window-all-closed", () => {

@@ -83,6 +83,7 @@ export default class home extends Component {
                 </div>
                 <div className="completed">
                     <h4>Completed</h4>
+
                     <ul>{this.getList(this.state.completed)}</ul>
                 </div>
             </div>
