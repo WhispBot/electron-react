@@ -28,12 +28,12 @@ export default class home extends Component {
     }
 
     componentDidMount() {
-        try {
-            const test = save.get("todos");
+        const item = save.get("todos");
+        if (item !== undefined) {
             this.setState({
-                todos: test
+                todos: item
             });
-        } catch (error) {
+        } else {
             save.set({ todos: [] });
         }
     }
@@ -55,6 +55,7 @@ export default class home extends Component {
                     completed: [...data, todo]
                 });
             }
+            return 0;
         });
 
         text.value = "";

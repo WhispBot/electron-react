@@ -74,6 +74,8 @@ app.on("ready", () => {
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     // Insert menu
     Menu.setApplicationMenu(mainMenu);
+
+    save.get("todos");
 });
 
 app.on("window-all-closed", () => {

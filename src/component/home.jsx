@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-const electron = window.require("electron");
-const ipcRenderer = electron.ipcRenderer;
 const Store = window.require("electron-store");
 const completed = new Store({ name: "completed" });
 const settings = new Store({
@@ -17,24 +15,16 @@ export default class home extends Component {
             todos: [],
             completed: []
         };
-        ipcRenderer.send("get-old-todos");
-        ipcRenderer.on("old-todos", (e, data) => {
-            data.sort(this.customSort);
-            this.setState({
-                todos: data
-            });
-        });
     }
 
     componentDidMount() {
-        try {
-            const item = completed.get("completed");
+        const item = completed.get("completed");
+        if (item !== undefined) {
             this.setState({
                 completed: item
             });
-        } catch (error) {
-            console.log(error);
-            //completed.set({ completed: [] });
+        } else {
+            completed.set({ completed: [] });
         }
         const backgroundColor = settings.get("settings.backgroundColor");
         document.body.style.background = backgroundColor;
