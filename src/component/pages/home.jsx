@@ -67,10 +67,6 @@ export default class home extends Component {
     render() {
         return (
             <div id="main" className="wrapper-home">
-                <div onDoubleClick={this.changeSize} className="todos">
-                    <h4>Old todos</h4>
-                    <ul>{this.getList(this.state.todos)}</ul>
-                </div>
                 <div className="completed">
                     <h4>Completed</h4>
 
