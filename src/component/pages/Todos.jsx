@@ -40,12 +40,9 @@ export default class home extends Component {
     }
 
     loadSettings = () => {
-        const fontSize = settings.get("settings").map(data => {
-            document.querySelector(
-                ".text"
-            ).style.fontSize = `${data.fontSize}pt`;
-            document.querySelector(".img").src = data.imgUrl;
-        });
+        document.querySelector(".text").style.fontSize = `${settings.get(
+            "settings.fontSize"
+        )}pt`;
     };
 
     removeItem = item => {
@@ -131,7 +128,7 @@ export default class home extends Component {
             </li>
         ));
 
-    saveText = item => {
+    saveText = () => {
         try {
             const text = document.querySelector(".text").value;
             const id = document.querySelector(".active-li").id;
