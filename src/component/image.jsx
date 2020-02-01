@@ -11,7 +11,7 @@ export default class image extends Component {
     render() {
         return (
             <div>
-                <img src="" className="img" />
+                <img src="" className="img" alt="" />
             </div>
         );
     }
