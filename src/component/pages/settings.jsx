@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-const electron = window.require("electron");
 const { remote, ipcRenderer } = window.require("electron");
 const { dialog } = remote;
 const Store = window.require("electron-store");
@@ -61,39 +60,46 @@ export default class home extends Component {
             });
     };
 
+    removeImg = () => {
+        const data = settings.get("settings");
+        document.querySelector(".img").src = "";
+        settings.set({
+            settings: { ...data, imgUrl: "" }
+        });
+    };
+
     render() {
         return (
             <div id="main" className="wrapper-options">
                 <div id="box-background-color" className="box-options">
-                    <button onClick={this.openSettings}>
+                    <div className="inner-box">
+                        <section>
+                            <span>Font size in textbox</span>
+                            <input
+                                maxLength="3"
+                                className="change-font"
+                                onKeyPressCapture={this.enterKeyPressed}
+                                onChange={this.limitNumber}
+                                type="number"
+                            />
+                        </section>
+                        <section>
+                            <span>Background color</span>
+                            <input
+                                type="color"
+                                className="change-color"
+                                onChange={this.changeColor}
+                            />
+                        </section>
+                        <section>
+                            <span>Change background image</span>
+                            <button onClick={this.openimg}>Change</button>
+                            <button onClick={this.removeImg}>Remove</button>
+                        </section>
+                    </div>
+                    <button className="openFile" onClick={this.openSettings}>
                         Open settings file in editor
                     </button>
-                </div>
-                <div id="box-background-color" className="box-options1">
-                    <section>
-                        <span>Font size in textbox</span>
-                        <input
-                            maxLength="3"
-                            className="change-font"
-                            onKeyPressCapture={this.enterKeyPressed}
-                            onChange={this.limitNumber}
-                            type="number"
-                        />
-                    </section>
-                </div>
-                <div id="box-background-color" className="box-options2">
-                    <section>
-                        <span>Background color</span>
-                        <input
-                            type="color"
-                            className="change-color"
-                            onChange={this.changeColor}
-                        />
-                    </section>
-                    <section>
-                        <span>change background image</span>
-                        <button onClick={this.openimg}>change</button>
-                    </section>
                 </div>
             </div>
         );
