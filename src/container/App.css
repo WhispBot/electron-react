@@ -163,15 +163,15 @@ input::-webkit-inner-spin-button {
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-template-rows: repeat(1000, 300px);
 }
-.wrapper-home .todos,
-.completed {
+.wrapper-home .completed {
     background: #00000080;
-    margin: 5px;
+    margin: 2px;
     margin-top: 10px;
     border-radius: 5px;
-    margin-bottom: 40px;
     padding: 10px;
     overflow-y: auto;
+    margin-right: 5px;
+    margin-bottom: 40px;
 }
 
 .wrapper-home h4 {
@@ -197,7 +197,7 @@ input::-webkit-inner-spin-button {
 }
 
 .wrapper-todos {
-    color: #686868;
+    color: white;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
@@ -244,14 +244,14 @@ input::-webkit-inner-spin-button {
 }
 
 .wrapper-todos button {
-    color: #686868;
     background: none;
-    border: 1px solid #363636;
+    color: white;
+    border: 1px solid white;
 }
 
 .wrapper-todos button:hover {
-    color: white;
-    border: 1px solid white;
+    color: #686868;
+    border: 1px solid #363636;
 }
 
 .wrapper-todos li {
@@ -259,7 +259,7 @@ input::-webkit-inner-spin-button {
     padding: 5px;
 }
 .wrapper-todos li:hover {
-    color: #ffffff;
+    color: #686868;
 }
 
 .wrapper-todos textarea {
@@ -310,66 +310,62 @@ input::-webkit-inner-spin-button {
 
 /*************          wrapper options          *************/
 .wrapper-options {
-    color: #686868;
+    color: white;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 .box-options {
-    grid-row: 1/4;
-    margin: 5px;
-    border-radius: 5px;
+    border: 1px solid white;
+    background: #00000000;
+    margin: 2px;
     margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
+    margin-right: 5px;
     margin-bottom: 40px;
-    background: #00000080;
-    padding: 10px;
-}
-.box-options1 {
-    margin: 5px;
-    margin-top: 10px;
-    border-radius: 5px;
-    background: #00000080;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.box-options2 {
-    margin: 5px;
-    margin-bottom: 40px;
-    margin-top: 10px;
-    border-radius: 5px;
-    grid-row: 2/4;
-    background: #00000080;
-    padding: 10px;
-}
-.box-options1 section {
-    color: white;
+.wrapper-options span {
+    margin-right: 10px;
 }
 
 .wrapper-options input {
     border-radius: 5px;
-    margin-left: 10px;
     color: white;
-    background: #111;
+    background: none;
     height: 20px;
     width: 10%;
-    border: 1px solid #363636;
+    border: 1px solid white;
 }
 
-.wrapper-options input:focus {
-    border: 1px solid white;
+.wrapper-options input:hover {
+    border: 1px solid #363636;
 }
 
 .wrapper-options button {
     padding: 5px;
-    color: #686868;
+    color: white;
     background: none;
-    border: 1px solid #363636;
+    border: 1px solid white;
 }
 
 .wrapper-options button:hover {
-    color: white;
-    border: 1px solid white;
+    color: #686868;
+    border: 1px solid #363636;
+}
+
+.wrapper-options section {
+    margin-top: 10px;
+}
+
+.wrapper-options .openFile {
+    width: 200px;
 }
 
 /*************          wrapper options          *************/
