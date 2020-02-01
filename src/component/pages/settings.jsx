@@ -93,8 +93,10 @@ export default class home extends Component {
                         </section>
                         <section>
                             <span>Change background image</span>
-                            <button onClick={this.openimg}>Change</button>
-                            <button onClick={this.removeImg}>Remove</button>
+                            <section>
+                                <button onClick={this.openimg}>Change</button>
+                                <button onClick={this.removeImg}>Remove</button>
+                            </section>
                         </section>
                     </div>
                     <button className="openFile" onClick={this.openSettings}>

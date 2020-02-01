@@ -340,7 +340,7 @@ input::-webkit-inner-spin-button {
     color: white;
     background: none;
     height: 20px;
-    width: 10%;
+    width: 30px;
     border: 1px solid white;
 }
 
@@ -361,6 +361,8 @@ input::-webkit-inner-spin-button {
 }
 
 .wrapper-options section {
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
@@ -371,9 +373,7 @@ input::-webkit-inner-spin-button {
 /*************          wrapper options          *************/
 
 img {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: 100%;
     z-index: -1;
-    border: none;
 }
