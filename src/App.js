@@ -10,6 +10,7 @@ function App() {
     return (
         <Router>
             <div className="App">
+                <img src="" className="img" />
                 <FrameBar />
                 <Switch>
                     <Route path="/" exact component={Home} />

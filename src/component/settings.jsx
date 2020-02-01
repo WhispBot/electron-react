@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 const electron = window.require("electron");
+const { remote, ipcRenderer } = window.require("electron");
+const { dialog } = remote;
 const Store = window.require("electron-store");
 const settings = new Store({
     name: "settings"
 });
-
-const ipcRenderer = electron.ipcRenderer;
 
 export default class home extends Component {
     componentDidMount() {
@@ -37,8 +37,28 @@ export default class home extends Component {
     changeColor = item => {
         const color = item.target.value;
         ipcRenderer.send("save:color", color);
-
         document.body.style.background = color;
+    };
+
+    openimg = () => {
+        let mainWindow = remote.getCurrentWindow();
+        dialog
+            .showOpenDialog(mainWindow, {
+                properties: ["openFile"],
+                filters: [{ name: "Images", extensions: ["jpg", "png", "gif"] }]
+            })
+            .then(result => {
+                if (!result.canceled) {
+                    const data = settings.get("settings");
+                    document.querySelector(".img").src = result.filePaths[0];
+                    settings.set({
+                        settings: { ...data, imgUrl: result.filePaths[0] }
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     render() {
@@ -62,12 +82,18 @@ export default class home extends Component {
                     </section>
                 </div>
                 <div id="box-background-color" className="box-options2">
-                    <span>Background color</span>
-                    <input
-                        type="color"
-                        className="change-color"
-                        onChange={this.changeColor}
-                    />
+                    <section>
+                        <span>Background color</span>
+                        <input
+                            type="color"
+                            className="change-color"
+                            onChange={this.changeColor}
+                        />
+                    </section>
+                    <section>
+                        <span>change background image</span>
+                        <button onClick={this.openimg}>change</button>
+                    </section>
                 </div>
             </div>
         );

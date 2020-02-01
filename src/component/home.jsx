@@ -28,6 +28,7 @@ export default class home extends Component {
         }
         const backgroundColor = settings.get("settings.backgroundColor");
         document.body.style.background = backgroundColor;
+        document.querySelector(".img").src = settings.get("settings.imgUrl");
     }
 
     getList = items =>

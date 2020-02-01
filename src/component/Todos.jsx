@@ -11,6 +11,7 @@ const completed = new Store({ name: "completed" });
 const settings = new Store({
     name: "settings"
 });
+
 export default class home extends Component {
     constructor(props) {
         super(props);
@@ -39,8 +40,12 @@ export default class home extends Component {
     }
 
     loadSettings = () => {
-        const fontSize = settings.get("Font_size");
-        document.querySelector(".text").style.fontSize = `${fontSize}pt`;
+        const fontSize = settings.get("settings").map(data => {
+            document.querySelector(
+                ".text"
+            ).style.fontSize = `${data.fontSize}pt`;
+            document.querySelector(".img").src = data.imgUrl;
+        });
     };
 
     removeItem = item => {
