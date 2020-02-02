@@ -42,11 +42,9 @@ const mainMenuTemplate = [];
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        Width: 1200,
-        Height: 700,
-        minWidth: 1050,
-        minHeight: 600,
-        resizable: true,
+        width: 1050,
+        height: 600,
+        resizable: false,
         show: false,
         frame: false,
         webPreferences: {

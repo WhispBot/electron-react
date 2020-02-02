@@ -103,6 +103,7 @@ export default class home extends Component {
                         Open settings file in editor
                     </button>
                 </div>
+                <div className="box-options-2"></div>
             </div>
         );
     }

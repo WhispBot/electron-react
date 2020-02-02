@@ -24,12 +24,12 @@ export default class frameBar extends Component {
         remote.getCurrentWindow().minimize();
     }
     maxiMize() {
-        const currentWindow = remote.getCurrentWindow();
+        /* const currentWindow = remote.getCurrentWindow();
         if (currentWindow.isMaximized()) {
             currentWindow.unmaximize();
         } else {
             currentWindow.maximize();
-        }
+        } */
     }
 
     /* When the user clicks on the button,

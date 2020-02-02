@@ -38,7 +38,7 @@ button {
 .frame-bar {
     display: flex;
     justify-content: space-between;
-    color: white;
+
     overflow: hidden;
     align-items: center;
     justify-content: space-between;
@@ -53,6 +53,7 @@ button {
 }
 
 .menu {
+    color: white;
     -webkit-app-region: no-drag;
     display: flex;
     justify-content: space-around;
@@ -68,7 +69,6 @@ button {
 .menu li {
     padding-top: 6px;
     -webkit-app-region: no-drag;
-    color: #ffffff;
     text-decoration: none;
     cursor: pointer;
     list-style: none;
@@ -115,8 +115,12 @@ button {
 .frame-bar-buttons li p {
     padding-top: 2px;
 }
-.min-btn:hover,
-.max-btn:hover {
+.max-btn p {
+    color: gray;
+    cursor: default;
+}
+
+.min-btn:hover {
     background: #ffffff2c;
 }
 
@@ -317,8 +321,7 @@ input::-webkit-inner-spin-button {
 }
 
 .box-options {
-    border: 1px solid white;
-    background: #00000000;
+    background: #00000080;
     margin: 2px;
     margin-top: 10px;
     border-radius: 5px;
@@ -329,6 +332,16 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.box-options-2 {
+    background: #00000080;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 20px 20px 20px 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-bottom: 40px;
 }
 
 .wrapper-options span {
