@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Clock from "react-live-clock";
 const Store = window.require("electron-store");
 const completed = new Store({ name: "completed" });
 const settings = new Store({
@@ -71,6 +72,13 @@ export default class home extends Component {
                     <h4>Completed</h4>
 
                     <ul>{this.getList(this.state.completed)}</ul>
+                </div>
+                <div>
+                    <Clock
+                        className="time"
+                        format={"HH:mm"}
+                        timezone={"Europe/Stockholm"}
+                    />
                 </div>
             </div>
         );
