@@ -179,7 +179,6 @@ input::-webkit-inner-spin-button {
     font-family: "Kaushan Script", cursive;
     display: flex;
     justify-content: center;
-    padding-top: 100px;
     font-size: 60pt;
 }
 

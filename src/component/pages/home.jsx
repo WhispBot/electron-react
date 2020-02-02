@@ -68,17 +68,17 @@ export default class home extends Component {
     render() {
         return (
             <div id="main" className="wrapper-home">
-                <div className="completed">
-                    <h4>Completed</h4>
-
-                    <ul>{this.getList(this.state.completed)}</ul>
-                </div>
                 <div>
                     <Clock
                         className="time"
                         format={"HH:mm"}
                         timezone={"Europe/Stockholm"}
                     />
+                </div>
+                <div className="completed">
+                    <h4>Completed</h4>
+
+                    <ul>{this.getList(this.state.completed)}</ul>
                 </div>
             </div>
         );
