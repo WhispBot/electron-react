@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain, MenuItem } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
@@ -13,7 +13,7 @@ contextMenu({
         {
             label: "Clear completed todos",
             // Only show it when right-clicking images
-            visible: params.pageURL == "http://localhost:3000/#/",
+            visible: params.pageURL === "http://localhost:3000/#/",
             click: () => {
                 completed.set({ completed: [] });
             }
@@ -21,7 +21,7 @@ contextMenu({
         {
             label: "clear todos",
             // Only show it when right-clicking images
-            visible: params.pageURL == "http://localhost:3000/#/todos",
+            visible: params.pageURL === "http://localhost:3000/#/todos",
             click: () => {
                 save.set({ todos: [] });
             }
@@ -29,7 +29,7 @@ contextMenu({
         {
             label: "save",
             // Only show it when right-clicking images
-            visible: params.pageURL == "http://localhost:3000/#/settings",
+            visible: params.pageURL === "http://localhost:3000/#/settings",
             click: () => {
                 console.log(params.pageURL);
             }
@@ -105,7 +105,7 @@ if (isDev) {
             {
                 label: "toggle DevTools",
                 accelerator:
-                    process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+                    process.platform === "darwin" ? "Command+I" : "Ctrl+I",
                 click(item, focusedWindow) {
                     focusedWindow.toggleDevTools();
                 }
