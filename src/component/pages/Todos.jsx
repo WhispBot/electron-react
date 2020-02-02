@@ -19,7 +19,7 @@ export default class home extends Component {
             todos: [
                 {
                     name: "",
-                    key: "",
+                    id: "",
                     date: "",
                     text: ""
                 }
@@ -48,11 +48,11 @@ export default class home extends Component {
     removeItem = item => {
         const text = document.querySelector(".text");
         this.setState({
-            todos: this.state.todos.filter(todo => todo.key !== item.target.id)
+            todos: this.state.todos.filter(todo => todo.id !== item.target.id)
         });
         const data = completed.get("completed");
         this.state.todos.filter(todo => {
-            if (todo.key === item.target.id) {
+            if (todo.id === item.target.id) {
                 completed.set({
                     completed: [...data, todo]
                 });
@@ -72,7 +72,7 @@ export default class home extends Component {
                 todos: [
                     {
                         name: this.state.currentItem,
-                        key: num,
+                        id: num,
                         date: dateFormat(),
                         text: ""
                     },
@@ -107,7 +107,7 @@ export default class home extends Component {
         }
         save.get("todos").map(e => {
             const id = document.querySelector(".active-li").id;
-            if (e.key === id) {
+            if (e.id === id) {
                 text.value = e.text;
             }
             return 0;
@@ -117,8 +117,8 @@ export default class home extends Component {
     getList = items =>
         items.map((item, i) => (
             <li
-                id={`${item.key}`}
-                key={`${item.key}`}
+                id={`${item.id}`}
+                key={`${item.id}`}
                 onDoubleClick={this.removeItem}
                 onClick={this.setActive}
             >
@@ -133,14 +133,14 @@ export default class home extends Component {
             const text = document.querySelector(".text").value;
             const id = document.querySelector(".active-li").id;
             this.state.todos.filter(e => {
-                if (e.key === id) {
+                if (e.id === id) {
                     this.setState(prevState => ({
                         todos: [
                             {
                                 ...e,
                                 text: text
                             },
-                            ...prevState.todos.filter(e => e.key !== id)
+                            ...prevState.todos.filter(e => e.id !== id)
                         ]
                     }));
                 }
