@@ -4211,6 +4211,11 @@ electron-context-menu@^0.15.2:
     electron-dl "^1.2.0"
     electron-is-dev "^1.0.1"
 
+electron-css@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/electron-css/-/electron-css-1.0.2.tgz#b694108bc6a62d90b891fded63615558bbbdd6d6"
+  integrity sha512-VnYP84fHw5U8BOcBZCwfTAznrZZ2a/+6nIHMT3sOPjFKm8HhK+To/6Lh/ZpXGnFPqv/BiD1Y9e+hwICcuEi9SQ==
+
 electron-dl@^1.2.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/electron-dl/-/electron-dl-1.14.0.tgz#1466f1b945664ca3d784268307c2b935728177bf"
