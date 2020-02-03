@@ -105,6 +105,23 @@ ipcMain.on("save:color", (e, background_Color) => {
     const data = settings.get("settings");
     settings.set({ settings: { ...data, backgroundColor: background_Color } });
 });
+mainMenuTemplate.push({
+    label: "change theme",
+    submenu: [
+        {
+            label: "light theme",
+            click(_item, focusedWindow) {
+                win.webContents.send("light:theme");
+            }
+        },
+        {
+            label: "dark theme",
+            click(_item, focusedWindow) {
+                win.webContents.send("dark:theme");
+            }
+        }
+    ]
+});
 
 if (isDev) {
     mainMenuTemplate.push({

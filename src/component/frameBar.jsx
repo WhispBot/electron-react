@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import { CSS, DynamicCSS } from "electron-css";
+import { darkTheme, lightTheme } from "../ui/theme";
 const { remote, ipcRenderer } = window.require("electron");
+
+const Theme = DynamicCSS();
+Theme.use(darkTheme.Theme);
+const framebar = CSS({
+    color: Theme.mainColor,
+    background: Theme.mainBackground
+});
+
+const li = CSS({
+    color: Theme.mainColor,
+    onHover: {
+        backgroundColor: Theme.onHover
+    }
+});
+
+const notInUse = CSS({
+    color: Theme.notInUse
+});
+
+ipcRenderer.on("light:theme", e => {
+    Theme.use(lightTheme.Theme);
+});
+ipcRenderer.on("dark:theme", e => {
+    Theme.use(darkTheme.Theme);
+});
 
 export default class frameBar extends Component {
     quitBtn() {
@@ -29,23 +55,23 @@ export default class frameBar extends Component {
 
     render() {
         return (
-            <div className="frame-bar">
-                <ul className="menu">
-                    <li className="burger" onClick={this.openMenu}>
+            <div id="frame-bar" className={framebar}>
+                <ul id="menu">
+                    <li id="burger" className={li} onClick={this.openMenu}>
                         <p>&#xE700;</p>
                     </li>
-                    <li className="Home">
-                        <Link draggable="false" to="/">
+                    <li id="Home" className={li}>
+                        <Link className={li} draggable="false" to="/">
                             <p>HOME</p>
                         </Link>
                     </li>
-                    <li className="todos-menu">
-                        <Link draggable="false" to="/todos">
+                    <li id="todos-menu" className={li}>
+                        <Link className={li} draggable="false" to="/todos">
                             <p>TODOS</p>
                         </Link>
                     </li>
-                    <li className="settings">
-                        <Link draggable="false" to="/settings">
+                    <li id="settings" className={li}>
+                        <Link className={li} draggable="false" to="/settings">
                             <p>&#xE713;</p>
                         </Link>
                     </li>
@@ -56,7 +82,7 @@ export default class frameBar extends Component {
                         <p>&#xE921;</p>
                     </li>
                     <li className="max-btn" onClick={this.maxiMize}>
-                        <p>&#xE922;</p>
+                        <p className={notInUse}>&#xE922;</p>
                     </li>
                     <li className="quit-btn" onClick={this.quitBtn}>
                         <p>&#xE8BB;</p>
