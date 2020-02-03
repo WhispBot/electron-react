@@ -34,28 +34,8 @@ export default class home extends Component {
     getList = items =>
         items.map((item, i) => (
             <li
-                id={`${item.key}`}
-                key={`${item.key}`}
-                onDoubleClick={this.removeItem}
-                onClick={this.setActive}
-            >
-                {item.name}
-
-                <span className="date">{item.date}</span>
-            </li>
-        ));
-
-    changeSize = () => {
-        const div = document.querySelector(".draggable");
-        div.style.width = "400px";
-        div.style.height = "200px";
-    };
-
-    getList = items =>
-        items.map((item, i) => (
-            <li
-                id={`${item.key}`}
-                key={`${item.key}`}
+                id={`${item.id}`}
+                key={`${item.id}`}
                 onDoubleClick={this.removeItem}
                 onClick={this.setActive}
             >
