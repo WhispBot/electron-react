@@ -2,18 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 const { remote, ipcRenderer } = window.require("electron");
-window.onclick = function(event) {
-    if (!event.target.matches(".dropbtn")) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains("show")) {
-                openDropdown.classList.remove("show");
-            }
-        }
-    }
-};
+
 export default class frameBar extends Component {
     quitBtn() {
         remote.getCurrentWindow().close();
