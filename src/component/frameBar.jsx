@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-const electron = window.require("electron");
-const { remote } = electron;
+const { remote, ipcRenderer } = window.require("electron");
 window.onclick = function(event) {
     if (!event.target.matches(".dropbtn")) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -32,13 +31,18 @@ export default class frameBar extends Component {
         } */
     }
 
-    // Close the dropdown menu if the user clicks outside of it
+    openMenu = e => {
+        ipcRenderer.send("display-app-menu", {
+            x: e.x,
+            y: e.y
+        });
+    };
 
     render() {
         return (
             <div className="frame-bar">
                 <ul className="menu">
-                    <li className="burger" onclick={this.myFunction}>
+                    <li className="burger" onClick={this.openMenu}>
                         <p>&#xE700;</p>
                     </li>
                     <li className="Home">

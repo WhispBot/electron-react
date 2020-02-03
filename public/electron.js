@@ -88,6 +88,14 @@ app.on("activate", () => {
     }
 });
 
+ipcMain.on("display-app-menu", (e, arg) => {
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+
+    if (win) {
+        mainMenu.popup(win, arg.x, arg.y);
+    }
+});
+
 ipcMain.on("save:font", (e, font_size) => {
     const data = settings.get("settings");
     settings.set({ settings: { ...data, font_size: font_size } });
